@@ -1,0 +1,142 @@
+:root {
+  --background-color: #181a1b;
+  --font_color_white: #e8e6e3;
+  color: var(--font_color_white);
+  font-size: 20px;
+  --main_container_gap: 1.5rem;
+  --add_button_blue_background: #009de7;
+  --add_button_blue_background_ligther: #42c3ff;
+  --border_color_grey: #858585;
+  --border_radius: 10px;
+  --form_border: 2px var(--border_color_grey) solid;
+}
+
+body {
+  background-color: var(--background-color);
+  font: 1rem sans-serif;
+}
+
+/* *************** */
+/* Project Display */
+/* *************** */
+
+.display_projects {
+  border: 2px darkgoldenrod solid;
+  padding: 1rem;
+}
+.display_project_row {
+  border: 1px brown solid;
+  display: flex;
+  gap: 1rem;
+}
+
+.container_for_single_task {
+  display: flex;
+  gap: 1rem;
+}
+
+/* *************** */
+/* *************** */
+
+/* *** */
+
+/* ***** */
+/* Forms */
+/* ***** */
+
+.forms_main_container {
+  display: flex;
+  gap: 2rem;
+}
+
+.form {
+  border: var(--form_border);
+  background-color: var(--font_color_white);
+  color: var(--background-color);
+  font-size: 1rem;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms;
+  border-radius: var(--border_radius);
+  z-index: 10;
+
+  width: 500px;
+  max-width: 80%;
+  height: 300px;
+  max-height: 80%;
+  padding: 40px 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: var(--form_border);
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-bottom: 16px;
+}
+
+.form header button {
+  background-color: transparent;
+  color: var(--background-color);
+}
+
+.form .form_row {
+  display: flex;
+  gap: 8px;
+}
+
+.form .form_submit {
+  align-self: center;
+  padding: 4px 12px;
+  margin-top: 20px;
+  color: var(--background-color);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.form .form_author,
+.form .form_title {
+  align-self: center;
+  width: 70px;
+}
+.form input {
+  border-radius: var(--border_radius);
+  border: 2px var(--background-color) solid;
+  padding: 12px;
+}
+
+/* ***** */
+/* ***** */
+
+/* *** */
+
+/* setting up the form pop-up */
+/* ************************** */
+.overlay_for_form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+}
+.overlay_for_form.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.form.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+/* ************************** */

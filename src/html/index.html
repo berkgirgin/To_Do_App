@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do App</title>
+  </head>
+  <body>
+    <h1>Welcome to my TO DO APP!</h1>
+
+    <div class="forms_main_container">
+      <form class="form form_project">
+        <header>
+          <div>Please enter your project</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="fform_project_title" for="form_project_title"
+            >Title:</label
+          >
+          <input
+            type="text"
+            name="title"
+            id="form_project_title"
+            maxlength="40"
+            placeholder="my lovely Project"
+          />
+        </div>
+
+        <button class="button form_submit" type="submit">
+          Submit your project
+        </button>
+      </form>
+
+      <!-- <form class="form form_task">
+        <header>
+          <div>Please enter your Task</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="form_title" for="form_title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="form_title"
+            maxlength="40"
+            placeholder="my cool Task"
+          />
+        </div>
+        <div class="form_row">
+          <label class="form_description" for="form_description"
+            >Description:</label
+          >
+          <input
+            type="text"
+            name="description"
+            id="form_description"
+            maxlength="80"
+            placeholder="Replace this field with text-box"
+          />
+        </div>
+        <div class="form_row">
+          <label for="form_is_checked"
+            >Have you finished this Task already?</label
+          >
+          <input
+            type="checkbox"
+            name="isChecked"
+            id="form_is_checked"
+            value="true"
+          />
+        </div>
+
+        <button class="button form_submit" type="submit">
+          Submit your task
+        </button>
+      </form> -->
+    </div>
+    <div class="main_container">
+      <button class="add_project_button">Add Project</button>
+      <div class="display_projects">My Projects</div>
+    </div>
+
+    <div class="overlay_for_form"></div>
+  </body>
+</html>
