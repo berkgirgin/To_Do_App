@@ -8,8 +8,11 @@ import { AppBoard } from "./modules/app_logic.js";
 const domCreator = DomCreator();
 export const appBoard = AppBoard();
 
-domCreator.addFormEventListeners();
+domCreator.addProjectFormEventListeners();
 
-const mainProject = Project("Main");
-appBoard.addProject(mainProject);
+// const mainProject = Project("Main");
+appBoard.addProject(Project("Main"));
+appBoard.addProject(Project("Project1"));
+appBoard.addProject(Project("Project2"));
+appBoard.addProject(Project("Project3"));
 domCreator.displayProjects();

@@ -3,7 +3,7 @@
   --font_color_white: #e8e6e3;
   color: var(--font_color_white);
   font-size: 20px;
-  --main_container_gap: 1.5rem;
+  --main_container_gap: 1rem;
   --add_button_blue_background: #009de7;
   --add_button_blue_background_ligther: #42c3ff;
   --border_color_grey: #858585;
@@ -14,6 +14,33 @@
 body {
   background-color: var(--background-color);
   font: 1rem sans-serif;
+}
+
+.main_container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 5rem auto;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
+  gap: var(--main_container_gap);
+  border: 8px yellow solid;
+}
+.main_container > * {
+  border: 4px orange solid;
+}
+
+.header_main_container {
+  grid-area: header;
+}
+
+.side_bar_main_container {
+  grid-area: sidebar;
+}
+
+.content_main_container {
+  grid-area: main;
 }
 
 /* *************** */

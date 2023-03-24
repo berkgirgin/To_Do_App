@@ -7,7 +7,27 @@
     <title>To Do App</title>
   </head>
   <body>
-    <h1>Welcome to my TO DO APP!</h1>
+    <div class="main_container">
+      <div class="header_main_container">
+        <h1>Welcome to my TO DO APP!</h1>
+      </div>
+      <div class="side_bar_main_container">
+        <div class="home_menu">
+          <div>All Tasks</div>
+          <div>Today</div>
+          <div>Next 7 Days</div>
+          <div>Important</div>
+        </div>
+        <div class="projects_menu">
+          <button class="add_project_button">Add Project</button>
+        </div>
+      </div>
+      <div class="content_main_container">
+        <div class="display_projects">My Projects</div>
+      </div>
+    </div>
+
+    <div class="overlay_for_form"></div>
 
     <div class="forms_main_container">
       <form class="form form_project">
@@ -18,7 +38,7 @@
           </button>
         </header>
         <div class="form_row">
-          <label class="fform_project_title" for="form_project_title"
+          <label class="form_project_title" for="form_project_title"
             >Title:</label
           >
           <input
@@ -27,6 +47,7 @@
             id="form_project_title"
             maxlength="40"
             placeholder="my lovely Project"
+            required
           />
         </div>
 
@@ -35,7 +56,7 @@
         </button>
       </form>
 
-      <!-- <form class="form form_task">
+      <form class="form form_task">
         <header>
           <div>Please enter your Task</div>
           <button type="button" class="button close_form_button">
@@ -43,35 +64,36 @@
           </button>
         </header>
         <div class="form_row">
-          <label class="form_title" for="form_title">Title:</label>
+          <label class="form_task_title" for="form_task_title">Title:</label>
           <input
             type="text"
             name="title"
-            id="form_title"
+            id="form_task_title"
             maxlength="40"
             placeholder="my cool Task"
+            required
           />
         </div>
         <div class="form_row">
-          <label class="form_description" for="form_description"
+          <label class="form_task_description" for="form_task_description"
             >Description:</label
           >
           <input
             type="text"
             name="description"
-            id="form_description"
+            id="form_task_description"
             maxlength="80"
             placeholder="Replace this field with text-box"
           />
         </div>
         <div class="form_row">
-          <label for="form_is_checked"
+          <label for="form_task_is_checked"
             >Have you finished this Task already?</label
           >
           <input
             type="checkbox"
             name="isChecked"
-            id="form_is_checked"
+            id="form_task_is_checked"
             value="true"
           />
         </div>
@@ -79,13 +101,7 @@
         <button class="button form_submit" type="submit">
           Submit your task
         </button>
-      </form> -->
+      </form>
     </div>
-    <div class="main_container">
-      <button class="add_project_button">Add Project</button>
-      <div class="display_projects">My Projects</div>
-    </div>
-
-    <div class="overlay_for_form"></div>
   </body>
 </html>
