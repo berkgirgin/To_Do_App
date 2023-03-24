@@ -62,15 +62,27 @@ export function DomCreator() {
       newProjectTitleAndButtons.appendChild(newAddTaskButton);
 
       newAddTaskButton.addEventListener("click", (event) => {
+        console.log("inside newAddTaskButton");
         console.log(event.target);
         console.log(project.projectName);
-        addTaskFormEventListeners(project, newAddTaskButton);
+
+        //setting the destination for .container_for_tasks
+        let selectedDisPlayProjectRow = event.target.closest(
+          "div.display_project_row"
+        );
+        let selectedContainerForTasks = selectedDisPlayProjectRow.querySelector(
+          ".container_for_tasks"
+        );
+
+        addTaskFormEventListeners(
+          project,
+          newAddTaskButton,
+          selectedContainerForTasks
+        );
         // displayTasks(project, newContainerForTasks);
       });
       // ***************
       // ***************
-
-      // displayTasks(project, newContainerForTasks);
 
       const newDisplayTasksButton = document.createElement("button");
       newDisplayTasksButton.innerHTML = "Display Tasks for this Project";
@@ -114,7 +126,7 @@ export function DomCreator() {
       newCheckTaskButton.classList.add("check_task_button");
       newCheckTaskButton.innerHTML = "Check Task";
       newContainerForSingleTask.appendChild(newCheckTaskButton);
-      newCheckTaskButton.addEventListener("click", () => {
+      newCheckTaskButton.addEventListener("click", (event) => {
         task.isTaskChecked = !task.isTaskChecked;
         // console.log(task);
         displayTasks(project, event.target.closest("div.container_for_tasks")); // selects the closest parent
@@ -142,6 +154,12 @@ export function DomCreator() {
     function openProjectForm() {
       projectForm.classList.add("active");
       overlay.classList.add("active");
+      projectForm.querySelector("input#form_project_title").focus();
+      projectForm.addEventListener("keydown", (event) => {
+        if (event.keyCode === 13 || event.which === 13) {
+          projectForm.querySelector("button.form_submit").focus();
+        }
+      });
     }
     function closeProjectForm() {
       projectForm.classList.remove("active");
@@ -159,10 +177,20 @@ export function DomCreator() {
       function clearProjectFormFields() {
         titleFromProjectForm.value = "";
       }
+
+      console.log("inside submitProject");
       event.preventDefault();
+
       const titleFromProjectForm = document.querySelector(
         "#form_project_title"
       );
+
+      // if (titleFromProjectForm.value == false) {
+      //   console.log("üzdü bro");
+      //   projectForm.querySelector("input#form_project_title").focus();
+      //   return;
+      // }
+
       const newProject = Project(titleFromProjectForm.value);
 
       appBoard.addProject(newProject);
@@ -172,13 +200,23 @@ export function DomCreator() {
     }
 
     submitProjectButton.addEventListener("click", (event) => {
+      if (
+        projectForm.querySelector("input#form_project_title").value == false
+      ) {
+        return;
+      }
       submitProject(event);
+      // displayTasks(project, selectedContainerForTasks);
       closeProjectForm();
     });
   }
 
   // This one is called when each Task is generated on DOM, form close events are reduntant :(
-  function addTaskFormEventListeners(project, addTaskButton) {
+  function addTaskFormEventListeners(
+    project,
+    addTaskButton,
+    displayTasksDestination
+  ) {
     const selectedProject = project;
     console.log("xx");
     console.log(project);
@@ -189,6 +227,12 @@ export function DomCreator() {
     function openTaskForm() {
       taskForm.classList.add("active");
       overlay.classList.add("active");
+      taskForm.querySelector("input#form_task_title").focus();
+      taskForm.addEventListener("keydown", (event) => {
+        if (event.keyCode === 13 || event.which === 13) {
+          taskForm.querySelector("button.form_submit").focus();
+        }
+      });
     }
     function closeTaskForm() {
       taskForm.classList.remove("active");
@@ -214,21 +258,31 @@ export function DomCreator() {
       selectedProject.addTask(newTask);
       console.log("inside submitTask");
       console.log(event.target);
+      console.log(event.target.closest("div.container_for_tasks"));
+
       console.log(selectedProject);
       // appBoard.addProject(newProject);
       // displayProjects();
       // console.log(appBoard.projectsList);
       clearTaskFormFields();
     }
+
+    const controller = new AbortController();
+    // IMPORTANT: do not delete { once: true } from the eventListener!
     submitTaskButton.addEventListener(
       "click",
       (event) => {
+        if (taskForm.querySelector("input#form_task_title").value == false) {
+          return;
+        }
         submitTask(event);
+        displayTasks(project, displayTasksDestination);
         closeTaskForm();
+        controller.abort();
       },
-      { once: true }
+      { signal: controller.signal }
+      // { once: true }
     );
-    //remomve all wevent listeners for newAddTaskButton and submitTaskButton
 
     openTaskForm();
   }
