@@ -1,5 +1,5 @@
 import { appBoard } from "../index.js";
-import { Project } from "./projects.js";
+import { Project, ProjectsNotToRemove } from "./projects.js";
 import { Task } from "./tasks.js";
 
 export function DomCreator() {
@@ -19,23 +19,40 @@ export function DomCreator() {
   function displayProjects() {
     let i = 0;
     const displayForProjects = document.querySelector(".display_projects");
-    displayForProjects.innerHTML = "My Projects";
+    const displaySideBarforProjects = document.querySelector(".projects_menu");
+    displayForProjects.innerHTML = "";
+    displaySideBarforProjects.innerHTML = "";
 
     appBoard.projectsList.forEach((project) => {
-      const newDislayRow = document.createElement("div");
-      newDislayRow.classList.add("display_project_row");
-      newDislayRow.setAttribute("data-project-index", `${i}`);
-      displayForProjects.appendChild(newDislayRow);
+      //creating display for the sidebar
+      //***************************** */
+      const newSideBarRow = document.createElement("div");
+      newSideBarRow.classList.add("sidebar_project_row");
+      newSideBarRow.setAttribute("data-sidebar-project-index", `${i}`);
+      displaySideBarforProjects.appendChild(newSideBarRow);
+
+      // const newProjectTitleSidebar = document.createElement("div");
+      // newProjectTitleSidebar.classList.add("sidebar_project_title_row");
+      // newProjectTitleSidebar.setAttribute("data-sidebar-project-index", `${i}`);
+      // newProjectTitleSidebar.innerHTML = project.projectName;
+      // newSideBarRow.appendChild(newProjectTitleSidebar);
+
+      //creating displays on the main area
+      //******************************* */
+      // const newDisplayRow = document.createElement("div");
+      // newDisplayRow.classList.add("display_project_row");
+      // newDisplayRow.setAttribute("data-project-index", `${i}`);
+      // displayForProjects.appendChild(newDisplayRow);
 
       const newProjectTitleAndButtons = document.createElement("div");
       newProjectTitleAndButtons.classList.add("project_title_and_buttons");
       newProjectTitleAndButtons.setAttribute("data-project-index", `${i}`);
-      newDislayRow.appendChild(newProjectTitleAndButtons);
+      newSideBarRow.appendChild(newProjectTitleAndButtons);
 
-      const newContainerForTasks = document.createElement("div");
-      newContainerForTasks.classList.add("container_for_tasks");
-      newContainerForTasks.setAttribute("data-project-index", `${i}`);
-      newDislayRow.appendChild(newContainerForTasks);
+      // const newContainerForTasks = document.createElement("div");
+      // newContainerForTasks.classList.add("container_for_tasks");
+      // newContainerForTasks.setAttribute("data-project-index", `${i}`);
+      // newSideBarRow.appendChild(newContainerForTasks);
 
       const newProject = document.createElement("div");
       newProject.classList.add("project");
@@ -44,16 +61,20 @@ export function DomCreator() {
       newProjectTitleAndButtons.appendChild(newProject);
 
       // remove button
-      const newRemoveButton = document.createElement("button");
-      newRemoveButton.innerHTML = "Remove Project";
-      newRemoveButton.setAttribute("data-project-index", `${i}`);
-      newProjectTitleAndButtons.appendChild(newRemoveButton);
+      // if condition prevents removing the main categories
+      if (i >= ProjectsNotToRemove.length) {
+        const newRemoveButton = document.createElement("button");
+        newRemoveButton.innerHTML = "Remove Project";
+        newRemoveButton.setAttribute("data-project-index", `${i}`);
+        newProjectTitleAndButtons.appendChild(newRemoveButton);
 
-      newRemoveButton.addEventListener("click", (event) => {
-        console.log(event.target.dataset.projectIndex);
-        appBoard.removeProject(event.target.dataset.projectIndex);
-        displayProjects();
-      });
+        newRemoveButton.addEventListener("click", (event) => {
+          // console.log(event.target.dataset.projectIndex);
+          appBoard.removeProject(event.target.dataset.projectIndex);
+          displayProjects();
+        });
+      }
+
       //**************
 
       const newAddTaskButton = document.createElement("button");
@@ -67,17 +88,17 @@ export function DomCreator() {
         console.log(project.projectName);
 
         //setting the destination for .container_for_tasks
-        let selectedDisPlayProjectRow = event.target.closest(
-          "div.display_project_row"
-        );
-        let selectedContainerForTasks = selectedDisPlayProjectRow.querySelector(
-          ".container_for_tasks"
-        );
+        // let selectedDisPlayProjectRow = event.target.closest(
+        //   "div.display_project_row"
+        // );
+        // let selectedContainerForTasks = selectedDisPlayProjectRow.querySelector(
+        //   ".container_for_tasks"
+        // );
 
         addTaskFormEventListeners(
           project,
-          newAddTaskButton,
-          selectedContainerForTasks
+          newAddTaskButton
+          // selectedContainerForTasks
         );
         // displayTasks(project, newContainerForTasks);
       });
@@ -92,7 +113,7 @@ export function DomCreator() {
       newDisplayTasksButton.addEventListener("click", (event) => {
         console.log(event.target);
         console.log(project.tasksList);
-        displayTasks(project, newContainerForTasks);
+        displayTasks(project, displayForProjects);
         // submitTask(event);
 
         // appBoard.removeProject(event.target.dataset.projectIndex);
@@ -105,11 +126,53 @@ export function DomCreator() {
 
   // Displays the tasks in a Project
   // TO DO: make it a toggle maybe, also clears display when called again??
-  function displayTasks(project, newContainerForTasks) {
+  function displayTasks(project) {
+    const newContainerForProjectTitle = document.querySelector(
+      ".display_project_title"
+    );
+    const newContainerForTasks = document.querySelector(".display_projects");
     // I need to be able to select the "project" argument`s newContainerForTasks
+
+    // const newContainerForTasks = document.createElement("div");
+    // newContainerForTasks.classList.add("container_for_tasks");
+    // newContainerForTasks.setAttribute("data-project-index", `${i}`);
+    // newSideBarRow.appendChild(newContainerForTasks);
     console.log("inside displayTasks");
     console.log(project);
+    newContainerForProjectTitle.innerHTML = project.projectName;
     newContainerForTasks.innerHTML = "";
+
+    // settings for main categories..
+    // ******************************
+    // ******************************
+
+    //Today
+    if (project === appBoard.projectsList[1]) {
+      project.tasksList = appBoard.getTasksForToday();
+    }
+
+    //This week
+    if (project === appBoard.projectsList[2]) {
+      project.tasksList = appBoard.getTasksForWeek();
+    }
+
+    //Important
+    if (project === appBoard.projectsList[3]) {
+      project.tasksList = appBoard.getImportantTasks();
+    }
+
+    //Expired
+    if (project === appBoard.projectsList[4]) {
+      project.tasksList = appBoard.getExpiredTasks();
+    }
+
+    // All Tasks
+    if (project === appBoard.projectsList[5]) {
+      project.tasksList = appBoard.getTasksFromAllProjects();
+    }
+
+    // ******************************
+    // ******************************
 
     project.tasksList.forEach((task) => {
       console.log(task);
@@ -117,17 +180,37 @@ export function DomCreator() {
       newContainerForSingleTask.classList.add("container_for_single_task");
       newContainerForTasks.appendChild(newContainerForSingleTask);
 
-      const newTaskDiv = document.createElement("div");
-      newTaskDiv.classList.add(task.uniqueID);
-      newTaskDiv.innerHTML = task.title;
-      newContainerForSingleTask.appendChild(newTaskDiv);
+      const newTaskTitleDiv = document.createElement("div");
+      newTaskTitleDiv.classList.add(task.uniqueID);
+      newTaskTitleDiv.innerHTML = task.title;
+      newContainerForSingleTask.appendChild(newTaskTitleDiv);
+
+      const newTaskDescriptionDiv = document.createElement("div");
+      newTaskDescriptionDiv.classList.add(task.uniqueID);
+      newTaskDescriptionDiv.innerHTML = task.description;
+      newContainerForSingleTask.appendChild(newTaskDescriptionDiv);
+
+      const newTaskDateDiv = document.createElement("div");
+      newTaskDateDiv.classList.add(task.uniqueID);
+      newTaskDateDiv.innerHTML = task.dueDate;
+      newContainerForSingleTask.appendChild(newTaskDateDiv);
 
       const newCheckTaskButton = document.createElement("button");
       newCheckTaskButton.classList.add("check_task_button");
-      newCheckTaskButton.innerHTML = "Check Task";
+      newCheckTaskButton.innerHTML = `Is checked: ${task.isTaskChecked}`;
       newContainerForSingleTask.appendChild(newCheckTaskButton);
       newCheckTaskButton.addEventListener("click", (event) => {
         task.isTaskChecked = !task.isTaskChecked;
+        // console.log(task);
+        displayTasks(project, event.target.closest("div.container_for_tasks")); // selects the closest parent
+      });
+
+      const newImportantTaskButton = document.createElement("button");
+      newImportantTaskButton.classList.add("check_task_button");
+      newImportantTaskButton.innerHTML = `Is important: ${task.isImportant}`;
+      newContainerForSingleTask.appendChild(newImportantTaskButton);
+      newImportantTaskButton.addEventListener("click", (event) => {
+        task.isImportant = !task.isImportant;
         // console.log(task);
         displayTasks(project, event.target.closest("div.container_for_tasks")); // selects the closest parent
       });
@@ -136,11 +219,12 @@ export function DomCreator() {
       newRemoveTaskButton.classList.add("remove_task_button");
       newRemoveTaskButton.innerHTML = "Remove Task";
       newContainerForSingleTask.appendChild(newRemoveTaskButton);
-      newRemoveTaskButton.addEventListener("click", (event) => {
-        project.removeTask(task);
-        // console.log(event.target);
+      newRemoveTaskButton.addEventListener("click", () => {
+        appBoard.removeTask(task.uniqueID);
+        console.log("my task target");
+        console.log(task);
         // console.log(event.target.closest("div.container_for_tasks"));
-        displayTasks(project, event.target.closest("div.container_for_tasks")); // selects the closest parent
+        displayTasks(project);
       });
     });
   }
@@ -212,11 +296,7 @@ export function DomCreator() {
   }
 
   // This one is called when each Task is generated on DOM, form close events are reduntant :(
-  function addTaskFormEventListeners(
-    project,
-    addTaskButton,
-    displayTasksDestination
-  ) {
+  function addTaskFormEventListeners(project, addTaskButton) {
     const selectedProject = project;
     console.log("xx");
     console.log(project);
@@ -247,13 +327,31 @@ export function DomCreator() {
     function submitTask(event) {
       function clearTaskFormFields() {
         titleFromTaskForm.value = "";
+        descriptionFromTaskForm.value = "";
+        dateFromTaskForm.value = "";
       }
       event.preventDefault();
       const titleFromTaskForm = document.querySelector("#form_task_title");
+      const descriptionFromTaskForm = document.querySelector(
+        "#form_task_description"
+      );
+      const dateFromTaskForm = document.querySelector("#form_task_date");
+
       const newTask = Task(
         titleFromTaskForm.value,
         selectedProject.projectName
       );
+      if (descriptionFromTaskForm.value != false) {
+        newTask.description = descriptionFromTaskForm.value;
+      }
+      if (dateFromTaskForm.value != false) {
+        newTask.dueDate = dateFromTaskForm.value;
+
+        // const dateStr = dateFromTaskForm.value;
+        // const [year, month, day] = dateStr.split("-");
+        // const date = `${year}/${month}/${day}`;
+        // newTask.dueDate = date;
+      }
       //   const newTask = Task("my new Task", project.projectName);
       selectedProject.addTask(newTask);
       console.log("inside submitTask");
@@ -276,8 +374,13 @@ export function DomCreator() {
           return;
         }
         submitTask(event);
-        displayTasks(project, displayTasksDestination);
+        displayTasks(project);
         closeTaskForm();
+        console.log("date below");
+        console.log(
+          typeof taskForm.querySelector("input#form_task_date").value
+        );
+        console.log(taskForm.querySelector("input#form_task_date").value);
         controller.abort();
       },
       { signal: controller.signal }

@@ -12,18 +12,24 @@
         <h1>Welcome to my TO DO APP!</h1>
       </div>
       <div class="side_bar_main_container">
-        <div class="home_menu">
-          <div>All Tasks</div>
-          <div>Today</div>
-          <div>Next 7 Days</div>
-          <div>Important</div>
+        <div class="home_menu_container">
+          <div class="home_menu_title">HOME</div>
+          <div class="home_menu">
+            <div>All Tasks</div>
+            <div>Today</div>
+            <div>Next 7 Days</div>
+            <div>Important</div>
+          </div>
         </div>
-        <div class="projects_menu">
+        <div class="projects_menu_container">
+          <div class="projects_menu_title">PROJECTS</div>
+          <div class="projects_menu"></div>
           <button class="add_project_button">Add Project</button>
         </div>
       </div>
       <div class="content_main_container">
-        <div class="display_projects">My Projects</div>
+        <div class="display_project_title"></div>
+        <div class="display_projects"></div>
       </div>
     </div>
 
@@ -87,15 +93,8 @@
           />
         </div>
         <div class="form_row">
-          <label for="form_task_is_checked"
-            >Have you finished this Task already?</label
-          >
-          <input
-            type="checkbox"
-            name="isChecked"
-            id="form_task_is_checked"
-            value="true"
-          />
+          <label class="form_task_date" for="form_task_date">Date:</label>
+          <input type="date" name="date" id="form_task_date" />
         </div>
 
         <button class="button form_submit" type="submit">

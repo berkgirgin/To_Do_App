@@ -1,4 +1,14 @@
 import { Task } from "./tasks";
+import { appBoard } from "../index.js";
+
+export const ProjectsNotToRemove = [
+  "Main Project",
+  "Today",
+  "Next 7 Days",
+  "Important",
+  "Expired",
+  "All Tasks",
+];
 
 export function Project(project_name) {
   let projectName = project_name;
@@ -14,20 +24,21 @@ export function Project(project_name) {
     this.tasksList.push(task);
   }
 
-  function removeTask(task) {
-    //currently removes the last added task
-    //find the task in tasksLists with the given uniqueID
-    const taskUniqueID = task.uniqueID;
-    console.log(task);
+  // function removeTask(task) {
+  //   //currently removes the last added task
+  //   //find the task in tasksLists with the given uniqueID
+  //   const taskUniqueID = task.uniqueID;
+  //   console.log(task);
 
-    for (let i = 0; i < tasksList.length; i++) {
-      if (taskUniqueID === tasksList[i].uniqueID) {
-        console.log(i);
-        tasksList.splice(i, 1);
-        return;
-      }
-    }
-  }
+  //   for (let i = 0; i < tasksList.length; i++) {
+  //     if (taskUniqueID === tasksList[i].uniqueID) {
+  //       console.log(i);
+  //       tasksList.splice(i, 1);
+  //       return;
+  //     }
+  //   }
+  // }
+
   function getTask() {}
 
   return {
@@ -35,7 +46,7 @@ export function Project(project_name) {
     tasksList,
     isProjectChecked,
     addTask,
-    removeTask,
+    // removeTask,
     toggleCheckedProject,
   };
 }

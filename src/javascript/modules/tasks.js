@@ -5,11 +5,11 @@ export function Task(arg_title, arg_project_name) {
   let uniqueID = Date.now();
   let description = "";
   let dueDate = ""; // check the formatting, maybe external module?
-  let isHighPrio = false; //by default tasks have normal priority
-  let isTaskChecked = false;
+  let isImportant = false; //by default tasks have normal priority
+  let isTaskChecked = false; //by default tasks are not done
 
-  function togglePriority() {
-    isHighPrio = !isHighPrio;
+  function toggleImportance() {
+    isImportant = !isImportant;
   }
 
   function toggleTaskCheck() {
@@ -25,9 +25,9 @@ export function Task(arg_title, arg_project_name) {
     uniqueID,
     description,
     dueDate,
-    isHighPrio,
+    isImportant,
     isTaskChecked,
-    togglePriority,
+    toggleImportance,
     toggleTaskCheck,
     setDueDate,
   };
