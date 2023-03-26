@@ -34,7 +34,6 @@ export function DomCreator() {
     // clearing the menus
     document.querySelector(".home_menu").innerHTML = "";
     document.querySelector(".projects_menu").innerHTML = "";
-    // displayForProjects.innerHTML = "";
 
     appBoard.projectsList.forEach((project) => {
       if (i < ProjectsNotToRemove.length - 1) {
@@ -50,32 +49,16 @@ export function DomCreator() {
       newSideBarRow.setAttribute("data-sidebar-project-index", `${i}`);
       displaySideBarforProjects.appendChild(newSideBarRow);
 
-      // const newProjectTitleSidebar = document.createElement("div");
-      // newProjectTitleSidebar.classList.add("sidebar_project_title_row");
-      // newProjectTitleSidebar.setAttribute("data-sidebar-project-index", `${i}`);
-      // newProjectTitleSidebar.innerHTML = project.projectName;
-      // newSideBarRow.appendChild(newProjectTitleSidebar);
-
-      //creating displays on the main area
-      //******************************* */
-      // const newDisplayRow = document.createElement("div");
-      // newDisplayRow.classList.add("display_project_row");
-      // newDisplayRow.setAttribute("data-project-index", `${i}`);
-      // displayForProjects.appendChild(newDisplayRow);
-
       const newProjectTitleAndButtons = document.createElement("div");
       newProjectTitleAndButtons.classList.add("project_title_and_buttons");
       newProjectTitleAndButtons.setAttribute("data-project-index", `${i}`);
       newSideBarRow.appendChild(newProjectTitleAndButtons);
 
       const newDisplayTasksButton = document.createElement("button");
-      // newDisplayTasksButton.innerHTML = "Display Tasks for this Project";
       newDisplayTasksButton.setAttribute("data-project-index", `${i}`);
       newProjectTitleAndButtons.appendChild(newDisplayTasksButton);
 
       newDisplayTasksButton.addEventListener("click", (event) => {
-        console.log(event.target);
-        console.log(project.tasksList);
         displayTasks(project, displayForProjects);
       });
 
@@ -95,7 +78,6 @@ export function DomCreator() {
       // if condition prevents removing the main categories
       if (i >= ProjectsNotToRemove.length) {
         const newRemoveButton = document.createElement("button");
-        // newRemoveButton.innerHTML = "Remove Project";
         newRemoveButton.setAttribute("data-project-index", `${i}`);
         newProjectTitleAndButtons.appendChild(newRemoveButton);
 
@@ -105,15 +87,6 @@ export function DomCreator() {
             project
           );
         };
-
-        // newRemoveButton.addEventListener("click", () => {
-        //   formCreator.confirmDeleteProjectEventListeners(newRemoveButton);
-        // });
-
-        // newRemoveButton.addEventListener("click", (event) => {
-        //   appBoard.removeProject(event.target.dataset.projectIndex);
-        //   displayProjects();
-        // });
 
         const newRemoveButtonImage = document.createElement("img");
         newRemoveButtonImage.setAttribute("alt", "delete icon");
@@ -127,7 +100,6 @@ export function DomCreator() {
       if (i === 5 || i >= ProjectsNotToRemove.length) {
         const newAddTaskButton = document.createElement("button");
         newAddTaskButton.classList.add("add_task_button");
-        // newAddTaskButton.innerHTML = "Add Task";
         newAddTaskButton.setAttribute("data-project-index", `${i}`);
         newProjectTitleAndButtons.appendChild(newAddTaskButton);
 
@@ -138,9 +110,6 @@ export function DomCreator() {
         newAddTaskButton.appendChild(newAddTaskButtonImage);
 
         newAddTaskButton.addEventListener("click", (event) => {
-          // console.log("inside newAddTaskButton");
-          // console.log(event.target);
-          // console.log(project.projectName);
           formCreator.addTaskFormEventListeners(project, newAddTaskButton);
         });
       }
@@ -151,20 +120,11 @@ export function DomCreator() {
   }
 
   // Displays the tasks in a Project
-  // TO DO: make it a toggle maybe, also clears display when called again??
   function displayTasks(project) {
     const newContainerForProjectTitle = document.querySelector(
       ".display_project_title"
     );
     const newContainerForTasks = document.querySelector(".display_projects");
-    // I need to be able to select the "project" argument`s newContainerForTasks
-
-    // const newContainerForTasks = document.createElement("div");
-    // newContainerForTasks.classList.add("container_for_tasks");
-    // newContainerForTasks.setAttribute("data-project-index", `${i}`);
-    // newSideBarRow.appendChild(newContainerForTasks);
-    console.log("inside displayTasks");
-    console.log(project);
     newContainerForProjectTitle.innerHTML = project.projectName;
     newContainerForTasks.innerHTML = "";
 
@@ -203,7 +163,6 @@ export function DomCreator() {
     //adding the header titles for tasks
     (function addHeaderForTasks() {
       const newContainerForSingleTask = document.createElement("div");
-      // newContainerForSingleTask.classList.add("container_for_single_task");
       newContainerForSingleTask.classList.add(
         "container_for_single_task_header"
       );
@@ -221,7 +180,6 @@ export function DomCreator() {
     })();
 
     project.tasksList.forEach((task) => {
-      console.log(task);
       const newContainerForSingleTask = document.createElement("div");
       newContainerForSingleTask.classList.add("container_for_single_task");
       newContainerForTasks.appendChild(newContainerForSingleTask);
@@ -273,7 +231,6 @@ export function DomCreator() {
 
       const newInfoTaskButton = document.createElement("button");
       newInfoTaskButton.classList.add("info_task_button");
-      // newInfoTaskButton.innerHTML = "Info";
       newTaskButtonsContainer.appendChild(newInfoTaskButton);
       formCreator.addTaskInfoEventListeners(newInfoTaskButton, task);
 

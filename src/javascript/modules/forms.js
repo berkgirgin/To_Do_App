@@ -44,7 +44,6 @@ export function FormsCreator() {
     );
 
     addProjectButton.innerHTML = "";
-    //adding an icon to Add project button
     const addProjectButtonImage = document.createElement("img");
     addProjectButtonImage.setAttribute("alt", "add project");
     addProjectButtonImage.setAttribute("src", appProjectIcon);
@@ -81,7 +80,6 @@ export function FormsCreator() {
         titleFromProjectForm.value = "";
       }
 
-      console.log("inside submitProject");
       event.preventDefault();
 
       const titleFromProjectForm = document.querySelector(
@@ -94,7 +92,6 @@ export function FormsCreator() {
       domCreator.displayProjects();
       domCreator.displayTasks(newProject);
 
-      console.log(appBoard.projectsList);
       clearProjectFormFields();
     }
 
@@ -105,7 +102,6 @@ export function FormsCreator() {
         return;
       }
       submitProject(event);
-      // displayTasks(project, selectedContainerForTasks);
       closeProjectForm();
     });
   }
@@ -120,9 +116,6 @@ export function FormsCreator() {
 
   function addTaskFormEventListeners(project, addTaskButton) {
     const selectedProject = project;
-    console.log("xx");
-    console.log(project);
-    // const addTaskButton = document.querySelector(".add_project_button");
     const closeTaskFormButton = document.querySelector(
       "form.form_task .close_form_button"
     );
@@ -175,14 +168,7 @@ export function FormsCreator() {
       }
 
       selectedProject.addTask(newTask);
-      console.log("inside submitTask");
-      console.log(event.target);
-      console.log(event.target.closest("div.container_for_tasks"));
 
-      console.log(selectedProject);
-      // appBoard.addProject(newProject);
-      // displayProjects();
-      // console.log(appBoard.projectsList);
       clearTaskFormFields();
     }
 
@@ -197,11 +183,7 @@ export function FormsCreator() {
         submitTask(event);
         domCreator.displayTasks(project);
         closeTaskForm();
-        console.log("date below");
-        console.log(
-          typeof taskForm.querySelector("input#form_task_date").value
-        );
-        console.log(taskForm.querySelector("input#form_task_date").value);
+
         controller.abort();
       },
       { signal: controller.signal }
@@ -317,23 +299,7 @@ export function FormsCreator() {
 
       domCreator.displayProjects();
       closeConfirmDeleteProjectForm();
-      console.log(project);
     };
-
-    // submitConfirmDeleteProjectButton.addEventListener("click", (event) => {
-    //   let projectIndex = openConfirmDeleteProjectButton.dataset.projectIndex;
-
-    //   //   console.log(event.target);
-    //   console.log(openConfirmDeleteProjectButton);
-    //   console.log(projectIndex);
-
-    //   event.preventDefault();
-
-    //   submitDeleteProjectRequest(projectIndex);
-
-    //   //   domCreator.displayProjects();
-    //   closeConfirmDeleteProjectForm();
-    // });
 
     openConfirmDeleteProjectForm();
   }

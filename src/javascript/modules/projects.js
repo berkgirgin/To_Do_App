@@ -26,7 +26,6 @@ export function Project(project_name) {
   let tasksList = [];
 
   function addTask(task) {
-    // adds the task to end of tasksList
     this.tasksList.push(task);
   }
 
@@ -39,12 +38,7 @@ export function Project(project_name) {
 }
 
 export function createTestProjects() {
-  // let today = new Date();
-  // let nextWeekToday = format(addDays(today, 7), "yyyy-MM-dd");
-  // console.log(nextWeekToday);
-
   function getFutureEventDate(days_later) {
-    // const now = new Date();
     const startOfCurrentWeek = startOfWeek(new Date(), { weekStartsOn: 1 }); // Assuming Monday is the first day of the week
 
     const futureDate = format(
@@ -61,10 +55,12 @@ export function createTestProjects() {
     let daysBetween = differenceInDays(new Date(date), new Date());
     return daysBetween < 0 ? true : false;
   }
+
   //adding default projects
   ProjectsNotToRemove.forEach((title) => {
     appBoard.addProject(Project(title));
   });
+
   //adding test projects
   appBoard.addProject(Project("Work"));
   appBoard.addProject(Project("Gym"));
