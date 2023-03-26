@@ -1,6 +1,16 @@
-import { appBoard } from "../index.js";
+import { appBoard, formCreator } from "../index.js";
 import { Project, ProjectsNotToRemove } from "./projects.js";
 import { Task } from "./tasks.js";
+
+import deleteIcon from "../../assets/images/delete_folder_icon.svg";
+import deleteIconRed from "../../assets/images/delete_folder_icon_red.svg";
+
+import threeLinesIcon from "../../assets/images/three_lines_icon.png";
+import addIcon from "../../assets/images/add_icon.png";
+import greenCheckedIcon from "../../assets/images/green_checked_icon.png";
+import threeDotsIcon from "../../assets/images/three_dots_icon.png";
+import checkedBoxIcon from "../../assets/images/checked_box_icon.png";
+import infoIcon from "../../assets/images/info_icon.png";
 
 export function DomCreator() {
   const mainContainer = document.querySelector(".main_container");
@@ -19,11 +29,20 @@ export function DomCreator() {
   function displayProjects() {
     let i = 0;
     const displayForProjects = document.querySelector(".display_projects");
-    const displaySideBarforProjects = document.querySelector(".projects_menu");
+    let displaySideBarforProjects;
+
+    // clearing the menus
+    document.querySelector(".home_menu").innerHTML = "";
+    document.querySelector(".projects_menu").innerHTML = "";
     displayForProjects.innerHTML = "";
-    displaySideBarforProjects.innerHTML = "";
 
     appBoard.projectsList.forEach((project) => {
+      if (i < ProjectsNotToRemove.length - 1) {
+        displaySideBarforProjects = document.querySelector(".home_menu");
+      } else {
+        displaySideBarforProjects = document.querySelector(".projects_menu");
+      }
+
       //creating display for the sidebar
       //***************************** */
       const newSideBarRow = document.createElement("div");
@@ -49,10 +68,22 @@ export function DomCreator() {
       newProjectTitleAndButtons.setAttribute("data-project-index", `${i}`);
       newSideBarRow.appendChild(newProjectTitleAndButtons);
 
-      // const newContainerForTasks = document.createElement("div");
-      // newContainerForTasks.classList.add("container_for_tasks");
-      // newContainerForTasks.setAttribute("data-project-index", `${i}`);
-      // newSideBarRow.appendChild(newContainerForTasks);
+      const newDisplayTasksButton = document.createElement("button");
+      // newDisplayTasksButton.innerHTML = "Display Tasks for this Project";
+      newDisplayTasksButton.setAttribute("data-project-index", `${i}`);
+      newProjectTitleAndButtons.appendChild(newDisplayTasksButton);
+
+      newDisplayTasksButton.addEventListener("click", (event) => {
+        console.log(event.target);
+        console.log(project.tasksList);
+        displayTasks(project, displayForProjects);
+      });
+
+      const newDisplayTasksButtonImage = document.createElement("img");
+      newDisplayTasksButtonImage.setAttribute("alt", "expand icon");
+      newDisplayTasksButtonImage.setAttribute("src", threeLinesIcon);
+      newDisplayTasksButtonImage.classList.add("sidebar_icon");
+      newDisplayTasksButton.appendChild(newDisplayTasksButtonImage);
 
       const newProject = document.createElement("div");
       newProject.classList.add("project");
@@ -64,61 +95,45 @@ export function DomCreator() {
       // if condition prevents removing the main categories
       if (i >= ProjectsNotToRemove.length) {
         const newRemoveButton = document.createElement("button");
-        newRemoveButton.innerHTML = "Remove Project";
+        // newRemoveButton.innerHTML = "Remove Project";
         newRemoveButton.setAttribute("data-project-index", `${i}`);
         newProjectTitleAndButtons.appendChild(newRemoveButton);
 
         newRemoveButton.addEventListener("click", (event) => {
-          // console.log(event.target.dataset.projectIndex);
           appBoard.removeProject(event.target.dataset.projectIndex);
           displayProjects();
         });
+
+        const newRemoveButtonImage = document.createElement("img");
+        newRemoveButtonImage.setAttribute("alt", "delete icon");
+        newRemoveButtonImage.setAttribute("src", deleteIcon);
+        newRemoveButtonImage.setAttribute("data-project-index", `${i}`);
+        newRemoveButtonImage.classList.add("sidebar_icon");
+        newRemoveButtonImage.classList.add("delete_project_icon");
+        newRemoveButton.appendChild(newRemoveButtonImage);
       }
 
+      if (i === 5 || i >= ProjectsNotToRemove.length) {
+        const newAddTaskButton = document.createElement("button");
+        newAddTaskButton.classList.add("add_task_button");
+        // newAddTaskButton.innerHTML = "Add Task";
+        newAddTaskButton.setAttribute("data-project-index", `${i}`);
+        newProjectTitleAndButtons.appendChild(newAddTaskButton);
+
+        const newAddTaskButtonImage = document.createElement("img");
+        newAddTaskButtonImage.setAttribute("alt", "add icon");
+        newAddTaskButtonImage.setAttribute("src", addIcon);
+        newAddTaskButtonImage.classList.add("sidebar_icon");
+        newAddTaskButton.appendChild(newAddTaskButtonImage);
+
+        newAddTaskButton.addEventListener("click", (event) => {
+          console.log("inside newAddTaskButton");
+          console.log(event.target);
+          console.log(project.projectName);
+          formCreator.addTaskFormEventListeners(project, newAddTaskButton);
+        });
+      }
       //**************
-
-      const newAddTaskButton = document.createElement("button");
-      newAddTaskButton.innerHTML = "Add Task";
-      newAddTaskButton.setAttribute("data-project-index", `${i}`);
-      newProjectTitleAndButtons.appendChild(newAddTaskButton);
-
-      newAddTaskButton.addEventListener("click", (event) => {
-        console.log("inside newAddTaskButton");
-        console.log(event.target);
-        console.log(project.projectName);
-
-        //setting the destination for .container_for_tasks
-        // let selectedDisPlayProjectRow = event.target.closest(
-        //   "div.display_project_row"
-        // );
-        // let selectedContainerForTasks = selectedDisPlayProjectRow.querySelector(
-        //   ".container_for_tasks"
-        // );
-
-        addTaskFormEventListeners(
-          project,
-          newAddTaskButton
-          // selectedContainerForTasks
-        );
-        // displayTasks(project, newContainerForTasks);
-      });
-      // ***************
-      // ***************
-
-      const newDisplayTasksButton = document.createElement("button");
-      newDisplayTasksButton.innerHTML = "Display Tasks for this Project";
-      newDisplayTasksButton.setAttribute("data-project-index", `${i}`);
-      newProjectTitleAndButtons.appendChild(newDisplayTasksButton);
-
-      newDisplayTasksButton.addEventListener("click", (event) => {
-        console.log(event.target);
-        console.log(project.tasksList);
-        displayTasks(project, displayForProjects);
-        // submitTask(event);
-
-        // appBoard.removeProject(event.target.dataset.projectIndex);
-        // displayProjects();
-      });
 
       i++;
     });
@@ -147,32 +162,52 @@ export function DomCreator() {
     // ******************************
 
     //Today
-    if (project === appBoard.projectsList[1]) {
+    if (project === appBoard.projectsList[0]) {
       project.tasksList = appBoard.getTasksForToday();
     }
 
     //This week
-    if (project === appBoard.projectsList[2]) {
+    if (project === appBoard.projectsList[1]) {
       project.tasksList = appBoard.getTasksForWeek();
     }
 
     //Important
-    if (project === appBoard.projectsList[3]) {
+    if (project === appBoard.projectsList[2]) {
       project.tasksList = appBoard.getImportantTasks();
     }
 
     //Expired
-    if (project === appBoard.projectsList[4]) {
+    if (project === appBoard.projectsList[3]) {
       project.tasksList = appBoard.getExpiredTasks();
     }
 
     // All Tasks
-    if (project === appBoard.projectsList[5]) {
+    if (project === appBoard.projectsList[4]) {
       project.tasksList = appBoard.getTasksFromAllProjects();
     }
 
     // ******************************
     // ******************************
+
+    //adding the header titles for tasks
+    (function addHeaderForTasks() {
+      const newContainerForSingleTask = document.createElement("div");
+      // newContainerForSingleTask.classList.add("container_for_single_task");
+      newContainerForSingleTask.classList.add(
+        "container_for_single_task_header"
+      );
+      newContainerForTasks.appendChild(newContainerForSingleTask);
+
+      const newTaskDateDiv = document.createElement("div");
+      newTaskDateDiv.classList.add("task_due_date");
+      newTaskDateDiv.innerHTML = "Due Date";
+      newContainerForSingleTask.appendChild(newTaskDateDiv);
+
+      const newTaskTitleDiv = document.createElement("div");
+      newTaskTitleDiv.classList.add("task_title");
+      newTaskTitleDiv.innerHTML = "Task Title";
+      newContainerForSingleTask.appendChild(newTaskTitleDiv);
+    })();
 
     project.tasksList.forEach((task) => {
       console.log(task);
@@ -180,215 +215,70 @@ export function DomCreator() {
       newContainerForSingleTask.classList.add("container_for_single_task");
       newContainerForTasks.appendChild(newContainerForSingleTask);
 
+      const newTaskDateDiv = document.createElement("div");
+      newTaskDateDiv.classList.add(task.uniqueID);
+      newTaskDateDiv.classList.add("task_due_date");
+      newTaskDateDiv.innerHTML = task.getDaysLeftStatus();
+      newContainerForSingleTask.appendChild(newTaskDateDiv);
+
       const newTaskTitleDiv = document.createElement("div");
       newTaskTitleDiv.classList.add(task.uniqueID);
+      newTaskTitleDiv.classList.add("task_title");
       newTaskTitleDiv.innerHTML = task.title;
       newContainerForSingleTask.appendChild(newTaskTitleDiv);
 
-      const newTaskDescriptionDiv = document.createElement("div");
-      newTaskDescriptionDiv.classList.add(task.uniqueID);
-      newTaskDescriptionDiv.innerHTML = task.description;
-      newContainerForSingleTask.appendChild(newTaskDescriptionDiv);
-
-      const newTaskDateDiv = document.createElement("div");
-      newTaskDateDiv.classList.add(task.uniqueID);
-      newTaskDateDiv.innerHTML = task.dueDate;
-      newContainerForSingleTask.appendChild(newTaskDateDiv);
+      const newTaskButtonsContainer = document.createElement("div");
+      newTaskButtonsContainer.classList.add(task.uniqueID);
+      newTaskButtonsContainer.classList.add("task_buttons_container");
+      newContainerForSingleTask.appendChild(newTaskButtonsContainer);
 
       const newCheckTaskButton = document.createElement("button");
       newCheckTaskButton.classList.add("check_task_button");
-      newCheckTaskButton.innerHTML = `Is checked: ${task.isTaskChecked}`;
-      newContainerForSingleTask.appendChild(newCheckTaskButton);
-      newCheckTaskButton.addEventListener("click", (event) => {
+      newCheckTaskButton.innerHTML = task.isTaskChecked ? "&#9745;" : "&#9744;";
+      newTaskButtonsContainer.appendChild(newCheckTaskButton);
+      if (task.isTaskChecked) {
+        newContainerForSingleTask.classList.add("checked");
+      }
+
+      newCheckTaskButton.addEventListener("click", () => {
         task.isTaskChecked = !task.isTaskChecked;
-        // console.log(task);
-        displayTasks(project, event.target.closest("div.container_for_tasks")); // selects the closest parent
+        displayTasks(project); // selects the closest parent
       });
 
       const newImportantTaskButton = document.createElement("button");
-      newImportantTaskButton.classList.add("check_task_button");
-      newImportantTaskButton.innerHTML = `Is important: ${task.isImportant}`;
-      newContainerForSingleTask.appendChild(newImportantTaskButton);
-      newImportantTaskButton.addEventListener("click", (event) => {
+      newImportantTaskButton.classList.add("check_priority_button");
+      newImportantTaskButton.innerHTML = "&#9733;";
+      newTaskButtonsContainer.appendChild(newImportantTaskButton);
+      if (task.isImportant) {
+        newImportantTaskButton.style.color = "#AA6C39";
+      }
+      newImportantTaskButton.addEventListener("click", () => {
         task.isImportant = !task.isImportant;
-        // console.log(task);
-        displayTasks(project, event.target.closest("div.container_for_tasks")); // selects the closest parent
+        displayTasks(project); // selects the closest parent
       });
+
+      const newInfoTaskButton = document.createElement("button");
+      newInfoTaskButton.classList.add("info_task_button");
+      // newInfoTaskButton.innerHTML = "Info";
+      newTaskButtonsContainer.appendChild(newInfoTaskButton);
+      formCreator.addTaskInfoEventListeners(newInfoTaskButton, task);
+
+      const newInfoTaskButtonImage = document.createElement("img");
+      newInfoTaskButtonImage.setAttribute("alt", "info icon");
+      newInfoTaskButtonImage.setAttribute("src", infoIcon);
+      newInfoTaskButtonImage.classList.add("sidebar_icon");
+      newInfoTaskButton.appendChild(newInfoTaskButtonImage);
 
       const newRemoveTaskButton = document.createElement("button");
       newRemoveTaskButton.classList.add("remove_task_button");
-      newRemoveTaskButton.innerHTML = "Remove Task";
-      newContainerForSingleTask.appendChild(newRemoveTaskButton);
+      newRemoveTaskButton.innerHTML = "&#x2716;";
+      newTaskButtonsContainer.appendChild(newRemoveTaskButton);
       newRemoveTaskButton.addEventListener("click", () => {
         appBoard.removeTask(task.uniqueID);
-        console.log("my task target");
-        console.log(task);
-        // console.log(event.target.closest("div.container_for_tasks"));
         displayTasks(project);
       });
     });
   }
 
-  function addProjectFormEventListeners() {
-    const addProjectButton = document.querySelector(".add_project_button");
-    const closeProjectFormButton = document.querySelector(
-      "form.form_project .close_form_button"
-    );
-
-    function openProjectForm() {
-      projectForm.classList.add("active");
-      overlay.classList.add("active");
-      projectForm.querySelector("input#form_project_title").focus();
-      projectForm.addEventListener("keydown", (event) => {
-        if (event.keyCode === 13 || event.which === 13) {
-          projectForm.querySelector("button.form_submit").focus();
-        }
-      });
-    }
-    function closeProjectForm() {
-      projectForm.classList.remove("active");
-      overlay.classList.remove("active");
-    }
-
-    addProjectButton.addEventListener("click", () => {
-      openProjectForm();
-    });
-    closeProjectFormButton.addEventListener("click", () => {
-      closeProjectForm();
-    });
-
-    function submitProject(event) {
-      function clearProjectFormFields() {
-        titleFromProjectForm.value = "";
-      }
-
-      console.log("inside submitProject");
-      event.preventDefault();
-
-      const titleFromProjectForm = document.querySelector(
-        "#form_project_title"
-      );
-
-      // if (titleFromProjectForm.value == false) {
-      //   console.log("üzdü bro");
-      //   projectForm.querySelector("input#form_project_title").focus();
-      //   return;
-      // }
-
-      const newProject = Project(titleFromProjectForm.value);
-
-      appBoard.addProject(newProject);
-      displayProjects();
-      console.log(appBoard.projectsList);
-      clearProjectFormFields();
-    }
-
-    submitProjectButton.addEventListener("click", (event) => {
-      if (
-        projectForm.querySelector("input#form_project_title").value == false
-      ) {
-        return;
-      }
-      submitProject(event);
-      // displayTasks(project, selectedContainerForTasks);
-      closeProjectForm();
-    });
-  }
-
-  // This one is called when each Task is generated on DOM, form close events are reduntant :(
-  function addTaskFormEventListeners(project, addTaskButton) {
-    const selectedProject = project;
-    console.log("xx");
-    console.log(project);
-    // const addTaskButton = document.querySelector(".add_project_button");
-    const closeTaskFormButton = document.querySelector(
-      "form.form_task .close_form_button"
-    );
-    function openTaskForm() {
-      taskForm.classList.add("active");
-      overlay.classList.add("active");
-      taskForm.querySelector("input#form_task_title").focus();
-      taskForm.addEventListener("keydown", (event) => {
-        if (event.keyCode === 13 || event.which === 13) {
-          taskForm.querySelector("button.form_submit").focus();
-        }
-      });
-    }
-    function closeTaskForm() {
-      taskForm.classList.remove("active");
-      overlay.classList.remove("active");
-    }
-    addTaskButton.addEventListener("click", () => {
-      openTaskForm();
-    });
-    closeTaskFormButton.addEventListener("click", () => {
-      closeTaskForm();
-    });
-    function submitTask(event) {
-      function clearTaskFormFields() {
-        titleFromTaskForm.value = "";
-        descriptionFromTaskForm.value = "";
-        dateFromTaskForm.value = "";
-      }
-      event.preventDefault();
-      const titleFromTaskForm = document.querySelector("#form_task_title");
-      const descriptionFromTaskForm = document.querySelector(
-        "#form_task_description"
-      );
-      const dateFromTaskForm = document.querySelector("#form_task_date");
-
-      const newTask = Task(
-        titleFromTaskForm.value,
-        selectedProject.projectName
-      );
-      if (descriptionFromTaskForm.value != false) {
-        newTask.description = descriptionFromTaskForm.value;
-      }
-      if (dateFromTaskForm.value != false) {
-        newTask.dueDate = dateFromTaskForm.value;
-
-        // const dateStr = dateFromTaskForm.value;
-        // const [year, month, day] = dateStr.split("-");
-        // const date = `${year}/${month}/${day}`;
-        // newTask.dueDate = date;
-      }
-      //   const newTask = Task("my new Task", project.projectName);
-      selectedProject.addTask(newTask);
-      console.log("inside submitTask");
-      console.log(event.target);
-      console.log(event.target.closest("div.container_for_tasks"));
-
-      console.log(selectedProject);
-      // appBoard.addProject(newProject);
-      // displayProjects();
-      // console.log(appBoard.projectsList);
-      clearTaskFormFields();
-    }
-
-    const controller = new AbortController();
-    // IMPORTANT: do not delete { once: true } from the eventListener!
-    submitTaskButton.addEventListener(
-      "click",
-      (event) => {
-        if (taskForm.querySelector("input#form_task_title").value == false) {
-          return;
-        }
-        submitTask(event);
-        displayTasks(project);
-        closeTaskForm();
-        console.log("date below");
-        console.log(
-          typeof taskForm.querySelector("input#form_task_date").value
-        );
-        console.log(taskForm.querySelector("input#form_task_date").value);
-        controller.abort();
-      },
-      { signal: controller.signal }
-      // { once: true }
-    );
-
-    openTaskForm();
-  }
-
-  return { displayProjects, addProjectFormEventListeners };
+  return { displayProjects, displayTasks };
 }

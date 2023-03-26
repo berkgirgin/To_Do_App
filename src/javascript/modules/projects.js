@@ -2,12 +2,12 @@ import { Task } from "./tasks";
 import { appBoard } from "../index.js";
 
 export const ProjectsNotToRemove = [
-  "Main Project",
   "Today",
   "Next 7 Days",
   "Important",
   "Expired",
   "All Tasks",
+  "General Tasks",
 ];
 
 export function Project(project_name) {

@@ -22,9 +22,17 @@
           </div>
         </div>
         <div class="projects_menu_container">
-          <div class="projects_menu_title">PROJECTS</div>
+          <div class="projects_menu_title">
+            <div>MY PROJECTS</div>
+            <button class="add_project_button">
+              <!-- <img
+                src="../assets/images/add_folder_icon.png"
+                alt="add project"
+                class="sidebar_icon"
+              /> -->
+            </button>
+          </div>
           <div class="projects_menu"></div>
-          <button class="add_project_button">Add Project</button>
         </div>
       </div>
       <div class="content_main_container">
@@ -36,6 +44,35 @@
     <div class="overlay_for_form"></div>
 
     <div class="forms_main_container">
+      <form class="form task_info">
+        <header>
+          <div>Task Information</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="form_task_info_title">Title:</label>
+          <div class="fill_task_info_title"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_description">Description:</label>
+          <div class="fill_task_info_description"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_duedate">Due Date:</label>
+          <div class="fill_task_info_duedate"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_importance">Priority:</label>
+          <div class="fill_task_info_importance"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_project">Project:</label>
+          <div class="fill_task_info_project"></div>
+        </div>
+      </form>
+
       <form class="form form_project">
         <header>
           <div>Please enter your project</div>
@@ -76,7 +113,7 @@
             name="title"
             id="form_task_title"
             maxlength="40"
-            placeholder="my cool Task"
+            placeholder="name your Task"
             required
           />
         </div>
@@ -84,13 +121,21 @@
           <label class="form_task_description" for="form_task_description"
             >Description:</label
           >
-          <input
+          <textarea
+            name="description"
+            id="form_task_description"
+            cols="50"
+            rows="6"
+            maxlength="100"
+            placeholder="more details about this Task..."
+          ></textarea>
+          <!-- <input
             type="text"
             name="description"
             id="form_task_description"
             maxlength="80"
             placeholder="Replace this field with text-box"
-          />
+          /> -->
         </div>
         <div class="form_row">
           <label class="form_task_date" for="form_task_date">Date:</label>

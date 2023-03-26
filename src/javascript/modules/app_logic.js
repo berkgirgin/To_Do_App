@@ -43,11 +43,13 @@ export function AppBoard() {
     });
   }
 
+  function infoTask() {}
+
   function getTasksFromAllProjects() {
     let allTasks = [];
 
     //projectsList[0] for the Main Project
-    projectsList[0].tasksList.forEach((task) => {
+    projectsList[5].tasksList.forEach((task) => {
       allTasks.push(task);
     });
 
@@ -85,7 +87,7 @@ export function AppBoard() {
       });
     }
 
-    checkTasklist(projectsList[0]);
+    checkTasklist(projectsList[5]);
     for (let i = ProjectsNotToRemove.length; i < projectsList.length; i++) {
       checkTasklist(projectsList[i]);
     }
@@ -113,13 +115,16 @@ export function AppBoard() {
         const taskDueDate = startOfDay(new Date(task.dueDate));
         const daysBetween = differenceInDays(taskDueDate, todayStart);
 
+        if (daysBetween < 0) {
+          return;
+        }
         if (daysBetween <= 7) {
           allTasks.push(task);
         }
       });
     }
 
-    checkTasklist(projectsList[0]);
+    checkTasklist(projectsList[5]);
     for (let i = ProjectsNotToRemove.length; i < projectsList.length; i++) {
       checkTasklist(projectsList[i]);
     }
@@ -145,7 +150,7 @@ export function AppBoard() {
     let allTasks = [];
 
     //projectsList[0] for the Main Project
-    projectsList[0].tasksList.forEach((task) => {
+    projectsList[5].tasksList.forEach((task) => {
       if (task.isImportant === true) {
         allTasks.push(task);
       }
@@ -187,7 +192,7 @@ export function AppBoard() {
       });
     }
 
-    checkTasklist(projectsList[0]);
+    checkTasklist(projectsList[5]);
     for (let i = ProjectsNotToRemove.length; i < projectsList.length; i++) {
       checkTasklist(projectsList[i]);
     }
@@ -213,6 +218,7 @@ export function AppBoard() {
   return {
     projectsList,
     removeTask,
+    infoTask,
     addProject,
     removeProject,
     getTasksFromAllProjects,
