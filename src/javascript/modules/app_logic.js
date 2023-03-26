@@ -15,6 +15,23 @@ import { appBoard } from "../index.js";
 // TO DO: add sorting to taskLists, especially the specific ones as the order changes
 //****************************** */
 
+function taskListSorting(taskList) {
+  taskList.sort(function (a, b) {
+    //a to x, b to y
+    let x = new Date(a.dueDate);
+    let y = new Date(b.dueDate);
+    let differenceToReturn = differenceInDays(x, y);
+
+    if (differenceToReturn === 0) {
+      differenceToReturn = b.uniqueID - a.uniqueID;
+    }
+
+    return differenceToReturn;
+  });
+
+  return taskList;
+}
+
 export function AppBoard() {
   let projectsList = [];
 
@@ -60,9 +77,12 @@ export function AppBoard() {
     }
 
     //new tasks to the top!
-    allTasks.sort(function (a, b) {
-      return b.uniqueID - a.uniqueID;
-    });
+
+    taskListSorting(allTasks);
+    // allTasks.sort(function (a, b) {
+    //   return b.uniqueID - a.uniqueID;
+    // });
+
     return allTasks;
   }
 
@@ -93,9 +113,10 @@ export function AppBoard() {
     }
 
     //new tasks to the top!
-    allTasks.sort(function (a, b) {
-      return b.uniqueID - a.uniqueID;
-    });
+    // allTasks.sort(function (a, b) {
+    //   return b.uniqueID - a.uniqueID;
+    // });
+    taskListSorting(allTasks);
 
     return allTasks;
   }
@@ -130,18 +151,19 @@ export function AppBoard() {
     }
 
     // first sort by dueDate, if same:new tasks to the top!
-    allTasks.sort(function (a, b) {
-      //a to x, b to y
-      let x = new Date(a.dueDate);
-      let y = new Date(b.dueDate);
-      let differenceToReturn = differenceInDays(x, y);
+    // allTasks.sort(function (a, b) {
+    //   //a to x, b to y
+    //   let x = new Date(a.dueDate);
+    //   let y = new Date(b.dueDate);
+    //   let differenceToReturn = differenceInDays(x, y);
 
-      if (differenceToReturn === 0) {
-        differenceToReturn = b.uniqueID - a.uniqueID;
-      }
+    //   if (differenceToReturn === 0) {
+    //     differenceToReturn = b.uniqueID - a.uniqueID;
+    //   }
 
-      return differenceToReturn;
-    });
+    //   return differenceToReturn;
+    // });
+    taskListSorting(allTasks);
 
     return allTasks;
   }
@@ -165,9 +187,11 @@ export function AppBoard() {
     }
 
     //new tasks to the top!
-    allTasks.sort(function (a, b) {
-      return b.uniqueID - a.uniqueID;
-    });
+    // allTasks.sort(function (a, b) {
+    //   return b.uniqueID - a.uniqueID;
+    // });
+    taskListSorting(allTasks);
+
     return allTasks;
   }
 
@@ -199,18 +223,19 @@ export function AppBoard() {
 
     // first sort by dueDate(first newly expired things)
     // if same:new tasks to the top!
-    allTasks.sort(function (a, b) {
-      //a to x, b to y
-      let x = new Date(a.dueDate);
-      let y = new Date(b.dueDate);
-      let differenceToReturn = differenceInDays(y, x);
+    // allTasks.sort(function (a, b) {
+    //   //a to x, b to y
+    //   let x = new Date(a.dueDate);
+    //   let y = new Date(b.dueDate);
+    //   let differenceToReturn = differenceInDays(y, x);
 
-      if (differenceToReturn === 0) {
-        differenceToReturn = b.uniqueID - a.uniqueID;
-      }
+    //   if (differenceToReturn === 0) {
+    //     differenceToReturn = b.uniqueID - a.uniqueID;
+    //   }
 
-      return differenceToReturn;
-    });
+    //   return differenceToReturn;
+    // });
+    taskListSorting(allTasks);
 
     return allTasks;
   }

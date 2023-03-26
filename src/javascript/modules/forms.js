@@ -72,6 +72,9 @@ export function FormsCreator() {
     closeProjectFormButton.addEventListener("click", () => {
       closeProjectForm();
     });
+    overlay.addEventListener("click", () => {
+      closeProjectForm();
+    });
 
     function submitProject(event) {
       function clearProjectFormFields() {
@@ -143,6 +146,10 @@ export function FormsCreator() {
     closeTaskFormButton.addEventListener("click", () => {
       closeTaskForm();
     });
+    overlay.addEventListener("click", () => {
+      closeTaskForm();
+    });
+
     function submitTask(event) {
       function clearTaskFormFields() {
         titleFromTaskForm.value = "";
@@ -261,6 +268,9 @@ export function FormsCreator() {
     closeInfoFormButton.addEventListener("click", () => {
       closeInfoForm();
     });
+    overlay.addEventListener("click", () => {
+      closeInfoForm();
+    });
   }
 
   // *******************************
@@ -291,6 +301,9 @@ export function FormsCreator() {
       openConfirmDeleteProjectForm();
     });
     closeConfirmDeleteProjectButton.addEventListener("click", () => {
+      closeConfirmDeleteProjectForm();
+    });
+    overlay.addEventListener("click", () => {
       closeConfirmDeleteProjectForm();
     });
 

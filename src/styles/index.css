@@ -23,6 +23,7 @@ body {
   color: black;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 /* ************** */
@@ -31,17 +32,20 @@ body {
 
 .main_container {
   min-height: 100vh;
+
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: 5rem auto;
+  grid-template-rows: 5rem auto 1.5rem;
   grid-template-areas:
     "header header"
-    "sidebar main";
+    "sidebar main"
+    "footer footer";
   /* gap: var(--main_container_gap); */
   /* border: 8px yellow solid; */
 }
-.main_container > * {
-  /* border: 4px orange solid; */
+.main_container > .header_main_container,
+.main_container > .side_bar_main_container,
+.main_container > .content_main_container {
   padding: 1.5rem;
 }
 .header_main_container {
@@ -53,6 +57,9 @@ body {
 }
 .content_main_container {
   grid-area: main;
+}
+footer {
+  grid-area: footer;
 }
 
 button {
@@ -73,10 +80,10 @@ button:hover {
 /* ****** */
 .header_main_container {
   color: black;
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
 
   display: flex;
-  align-items: center;
+  align-items: st;
 
   background-image: url(../assets/images/tree_clouds_header_background.jpg);
   background-position: bottom left;
@@ -89,7 +96,7 @@ button:hover {
 
 .header_main_container .header_icon {
   height: 5.5rem;
-  align-self: flex-end;
+  align-self: center;
   margin-bottom: -0.4rem;
 
   /* padding-bottom: 0.5rem; */
@@ -464,3 +471,34 @@ button .add_task_button {
   transform: translate(-50%, -50%) scale(1);
 }
 /* ************************** */
+
+/* ****** */
+/* footer */
+/* ****** */
+
+footer {
+  background-color: var(--background-color);
+  color: var(--font_color_white);
+  font-size: 0.8rem;
+
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* z-index: 2; */
+  /* text-shadow: none; */
+  margin-top: auto;
+}
+
+footer img {
+  height: 1.5rem;
+  scale: 1.2;
+  padding: 0;
+}
+
+footer img:hover {
+  transform: scale(1.1);
+}
+
+/* ****** */
+/* ****** */
