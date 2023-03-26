@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do App</title>
+  </head>
+  <body>
+    <div class="main_container">
+      <div class="header_main_container">
+        <img
+          src="f28c6a91f5fb4d1e2f11.png"
+          alt="to do man"
+          class="icon header_icon"
+        />
+        <h1>To Do App!</h1>
+      </div>
+      <div class="side_bar_main_container">
+        <div class="home_menu_container">
+          <div class="home_menu_title">HOME</div>
+          <div class="home_menu">
+            <div>All Tasks</div>
+            <div>Today</div>
+            <div>Next 7 Days</div>
+            <div>Important</div>
+          </div>
+        </div>
+        <div class="projects_menu_container">
+          <div class="projects_menu_title">
+            <div>MY PROJECTS</div>
+            <button class="add_project_button">
+              <!-- <img
+                src="../assets/images/add_folder_icon.png"
+                alt="add project"
+                class="sidebar_icon"
+              /> -->
+            </button>
+          </div>
+          <div class="projects_menu"></div>
+        </div>
+      </div>
+      <div class="content_main_container">
+        <div class="display_project_title"></div>
+        <div class="display_projects"></div>
+      </div>
+
+      <footer>
+        Here I practiced&nbsp;
+        <em>CRUD</em>&nbsp;operations&nbsp;
+        <a href="https://github.com/berkgirgin/To_Do_App"
+          ><img src="770b383a99485f3f7a7d.png" alt="git repo"
+        /></a>
+      </footer>
+    </div>
+
+    <div class="overlay_for_form"></div>
+
+    <div class="forms_main_container">
+      <form class="form confirm_delete_project">
+        <header>
+          <div>Confirm delete request</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="confirm_delete_project_title"
+            >The tasks under this project will be deleted as well!</label
+          >
+        </div>
+        <button class="button form_submit" type="button">Delete Project</button>
+      </form>
+
+      <form class="form task_info">
+        <header>
+          <div>Task Information</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="form_task_info_title">Title:</label>
+          <div class="fill_task_info_title"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_description">Description:</label>
+          <div class="fill_task_info_description"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_duedate">Due Date:</label>
+          <div class="fill_task_info_duedate"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_importance">Priority:</label>
+          <div class="fill_task_info_importance"></div>
+        </div>
+        <div class="form_row">
+          <label class="form_task_info_project">Project:</label>
+          <div class="fill_task_info_project"></div>
+        </div>
+      </form>
+
+      <form class="form form_project">
+        <header>
+          <div>Please enter your project</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="form_project_title" for="form_project_title"
+            >Title:</label
+          >
+          <input
+            type="text"
+            name="title"
+            id="form_project_title"
+            maxlength="40"
+            placeholder="my lovely Project"
+            required
+          />
+        </div>
+
+        <button class="button form_submit" type="submit">
+          Submit your project
+        </button>
+      </form>
+
+      <form class="form form_task">
+        <header>
+          <div>Please enter your Task</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="form_task_title" for="form_task_title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="form_task_title"
+            maxlength="40"
+            placeholder="name your Task"
+            required
+          />
+        </div>
+        <div class="form_row">
+          <label class="form_task_description" for="form_task_description"
+            >Description:</label
+          >
+          <textarea
+            name="description"
+            id="form_task_description"
+            cols="50"
+            rows="6"
+            maxlength="100"
+            placeholder="more details about this Task..."
+          ></textarea>
+          <!-- <input
+            type="text"
+            name="description"
+            id="form_task_description"
+            maxlength="80"
+            placeholder="Replace this field with text-box"
+          /> -->
+        </div>
+        <div class="form_row">
+          <label class="form_task_date" for="form_task_date">Date:</label>
+          <input type="date" name="date" id="form_task_date" />
+        </div>
+
+        <button class="button form_submit" type="submit">
+          Submit your task
+        </button>
+      </form>
+    </div>
+  <script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script><script defer src="tasks.bundle.js"></script><script defer src="projects.bundle.js"></script><script defer src="dom_materials.bundle.js"></script><script defer src="app_logic.bundle.js"></script><script defer src="forms.bundle.js"></script></body>
+</html>
