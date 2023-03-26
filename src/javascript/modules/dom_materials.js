@@ -7,7 +7,6 @@ import deleteIconRed from "../../assets/images/delete_folder_icon_red.svg";
 
 import threeLinesIcon from "../../assets/images/three_lines_icon.png";
 import addIcon from "../../assets/images/add_icon.png";
-import greenCheckedIcon from "../../assets/images/green_checked_icon.png";
 import threeDotsIcon from "../../assets/images/three_dots_icon.png";
 import checkedBoxIcon from "../../assets/images/checked_box_icon.png";
 import infoIcon from "../../assets/images/info_icon.png";
