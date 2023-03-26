@@ -12,20 +12,31 @@ export function Task(arg_title, arg_project_name) {
 
   let uniqueID = Date.now();
   let description = "";
-  let dueDate = ""; // check the formatting, maybe external module?
+  let dueDate = "";
   let isImportant = false; //by default tasks have normal priority
   let isTaskChecked = false; //by default tasks are not done
 
-  // check this later
+  function getDaysLeft(task) {
+    const now = new Date();
+    const todayStart = startOfDay(now);
+    const dueDateStr = task.dueDate;
+    let daysBetween;
+
+    if (dueDateStr == "") {
+      daysBetween = false;
+      return daysBetween;
+    }
+
+    const taskDueDate = startOfDay(new Date(dueDateStr));
+    daysBetween = differenceInDays(taskDueDate, todayStart);
+
+    return daysBetween;
+  }
 
   function getDaysLeftStatus() {
     //returns a string message
-    const now = new Date();
-    const todayStart = startOfDay(now);
     let statusMessage = "";
-
-    const taskDueDate = startOfDay(new Date(this.dueDate));
-    const daysBetween = differenceInDays(taskDueDate, todayStart);
+    const daysBetween = getDaysLeft(this);
 
     if (daysBetween < 0) {
       statusMessage = `${-daysBetween} days ago`;
@@ -40,6 +51,23 @@ export function Task(arg_title, arg_project_name) {
     return statusMessage;
   }
 
+  function getClassForDuedate() {
+    let statusClass = "";
+    const daysBetween = getDaysLeft(this);
+
+    if (daysBetween < 0) {
+      statusClass = "due_date_expiry_level_0";
+    } else if (daysBetween === 0) {
+      statusClass = "due_date_expiry_level_1";
+    } else if (daysBetween >= 1 && daysBetween <= 7) {
+      statusClass = "due_date_expiry_level_2";
+    } else if (daysBetween > 7 || daysBetween == false) {
+      statusClass = "due_date_expiry_level_3";
+    }
+
+    return statusClass;
+  }
+
   return {
     title,
     projectName,
@@ -49,5 +77,6 @@ export function Task(arg_title, arg_project_name) {
     isImportant,
     isTaskChecked,
     getDaysLeftStatus,
+    getClassForDuedate,
   };
 }

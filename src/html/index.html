@@ -9,7 +9,12 @@
   <body>
     <div class="main_container">
       <div class="header_main_container">
-        <h1>Welcome to my TO DO APP!</h1>
+        <img
+          src="../assets/images/to_do_man_icon.png"
+          alt="to do man"
+          class="icon header_icon"
+        />
+        <h1>To Do App!</h1>
       </div>
       <div class="side_bar_main_container">
         <div class="home_menu_container">
@@ -44,6 +49,21 @@
     <div class="overlay_for_form"></div>
 
     <div class="forms_main_container">
+      <form class="form confirm_delete_project">
+        <header>
+          <div>Confirm delete request</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="confirm_delete_project_title"
+            >The tasks under this project will be deleted as well!</label
+          >
+        </div>
+        <button class="button form_submit" type="button">Delete Project</button>
+      </form>
+
       <form class="form task_info">
         <header>
           <div>Task Information</div>

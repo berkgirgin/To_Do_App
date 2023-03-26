@@ -34,7 +34,7 @@ export function DomCreator() {
     // clearing the menus
     document.querySelector(".home_menu").innerHTML = "";
     document.querySelector(".projects_menu").innerHTML = "";
-    displayForProjects.innerHTML = "";
+    // displayForProjects.innerHTML = "";
 
     appBoard.projectsList.forEach((project) => {
       if (i < ProjectsNotToRemove.length - 1) {
@@ -99,10 +99,21 @@ export function DomCreator() {
         newRemoveButton.setAttribute("data-project-index", `${i}`);
         newProjectTitleAndButtons.appendChild(newRemoveButton);
 
-        newRemoveButton.addEventListener("click", (event) => {
-          appBoard.removeProject(event.target.dataset.projectIndex);
-          displayProjects();
-        });
+        newRemoveButton.onclick = function () {
+          formCreator.confirmDeleteProjectEventListeners(
+            newRemoveButton,
+            project
+          );
+        };
+
+        // newRemoveButton.addEventListener("click", () => {
+        //   formCreator.confirmDeleteProjectEventListeners(newRemoveButton);
+        // });
+
+        // newRemoveButton.addEventListener("click", (event) => {
+        //   appBoard.removeProject(event.target.dataset.projectIndex);
+        //   displayProjects();
+        // });
 
         const newRemoveButtonImage = document.createElement("img");
         newRemoveButtonImage.setAttribute("alt", "delete icon");
@@ -127,9 +138,9 @@ export function DomCreator() {
         newAddTaskButton.appendChild(newAddTaskButtonImage);
 
         newAddTaskButton.addEventListener("click", (event) => {
-          console.log("inside newAddTaskButton");
-          console.log(event.target);
-          console.log(project.projectName);
+          // console.log("inside newAddTaskButton");
+          // console.log(event.target);
+          // console.log(project.projectName);
           formCreator.addTaskFormEventListeners(project, newAddTaskButton);
         });
       }
@@ -218,6 +229,7 @@ export function DomCreator() {
       const newTaskDateDiv = document.createElement("div");
       newTaskDateDiv.classList.add(task.uniqueID);
       newTaskDateDiv.classList.add("task_due_date");
+      newTaskDateDiv.classList.add(task.getClassForDuedate());
       newTaskDateDiv.innerHTML = task.getDaysLeftStatus();
       newContainerForSingleTask.appendChild(newTaskDateDiv);
 
@@ -247,11 +259,13 @@ export function DomCreator() {
 
       const newImportantTaskButton = document.createElement("button");
       newImportantTaskButton.classList.add("check_priority_button");
-      newImportantTaskButton.innerHTML = "&#9733;";
+      newImportantTaskButton.innerHTML = "&#9734;";
       newTaskButtonsContainer.appendChild(newImportantTaskButton);
       if (task.isImportant) {
-        newImportantTaskButton.style.color = "#AA6C39";
+        newImportantTaskButton.innerHTML = "&#9733;";
+        newImportantTaskButton.classList.add("checked");
       }
+
       newImportantTaskButton.addEventListener("click", () => {
         task.isImportant = !task.isImportant;
         displayTasks(project); // selects the closest parent

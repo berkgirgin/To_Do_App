@@ -12,7 +12,6 @@ export const domCreator = DomCreator();
 export const formCreator = FormsCreator();
 export const appBoard = AppBoard();
 
-// domCreator.addProjectFormEventListeners();
 formCreator.addProjectFormEventListeners();
 
 //adding default projects
@@ -22,6 +21,10 @@ ProjectsNotToRemove.forEach((title) => {
 //adding test projects
 appBoard.addProject(Project("test1"));
 appBoard.addProject(Project("test2"));
+appBoard.addProject(Project("test3"));
+appBoard.addProject(Project("test4"));
+appBoard.addProject(Project("test5"));
+appBoard.addProject(Project("test6"));
 
 //generating test tasks
 let testTask_1 = Task("clean your room", "General Tasks");
@@ -46,7 +49,11 @@ appBoard.projectsList[6].addTask(testTask_3);
 domCreator.displayProjects();
 domCreator.displayTasks(appBoard.projectsList[0]);
 
-let x = new Date("2023-03-30");
-let y = new Date("2023-03-30");
-let differenceToReturn = differenceInDays(x, y);
-console.log(differenceToReturn);
+// let x = new Date("2023-03-30");
+// let y = new Date("2023-03-30");
+// let differenceToReturn = differenceInDays(x, y);
+// console.log(differenceToReturn);
+
+// let xxx = startOfDay(new Date(""));
+// console.log("nbr");
+// console.log(new Date(""));

@@ -14,6 +14,9 @@ export function FormsCreator() {
   const infoForm = document.querySelector(".form.task_info");
   const taskForm = document.querySelector(".form.form_task");
   const projectForm = document.querySelector(".form.form_project");
+  const confirmDeleteProjectForm = document.querySelector(
+    ".form.confirm_delete_project"
+  );
 
   const submitProjectButton = document.querySelector(
     "form.form_project button.form_submit"
@@ -21,6 +24,18 @@ export function FormsCreator() {
   const submitTaskButton = document.querySelector(
     "form.form_task button.form_submit"
   );
+
+  const submitConfirmDeleteProjectButton = document.querySelector(
+    "form.confirm_delete_project button.form_submit"
+  );
+
+  // *******************************
+  // *******************************
+  // *******************************
+
+  // *******************************
+  // *******************************
+  // *******************************
 
   function addProjectFormEventListeners() {
     const addProjectButton = document.querySelector(".add_project_button");
@@ -74,6 +89,8 @@ export function FormsCreator() {
 
       appBoard.addProject(newProject);
       domCreator.displayProjects();
+      domCreator.displayTasks(newProject);
+
       console.log(appBoard.projectsList);
       clearProjectFormFields();
     }
@@ -89,6 +106,14 @@ export function FormsCreator() {
       closeProjectForm();
     });
   }
+
+  // *******************************
+  // *******************************
+  // *******************************
+
+  // *******************************
+  // *******************************
+  // *******************************
 
   function addTaskFormEventListeners(project, addTaskButton) {
     const selectedProject = project;
@@ -178,6 +203,14 @@ export function FormsCreator() {
     openTaskForm();
   }
 
+  // *******************************
+  // *******************************
+  // *******************************
+
+  // *******************************
+  // *******************************
+  // *******************************
+
   function addTaskInfoEventListeners(openInfoButton, task) {
     const selectedTask = task;
     const infoTitleField = infoForm.querySelector(".fill_task_info_title");
@@ -230,9 +263,72 @@ export function FormsCreator() {
     });
   }
 
+  // *******************************
+  // *******************************
+  // *******************************
+
+  // *******************************
+  // *******************************
+  // *******************************
+
+  function confirmDeleteProjectEventListeners(
+    openConfirmDeleteProjectButton,
+    project
+  ) {
+    const closeConfirmDeleteProjectButton = document.querySelector(
+      "form.confirm_delete_project .close_form_button"
+    );
+
+    function openConfirmDeleteProjectForm() {
+      confirmDeleteProjectForm.classList.add("active");
+      overlay.classList.add("active");
+    }
+    function closeConfirmDeleteProjectForm() {
+      confirmDeleteProjectForm.classList.remove("active");
+      overlay.classList.remove("active");
+    }
+    openConfirmDeleteProjectButton.addEventListener("click", () => {
+      openConfirmDeleteProjectForm();
+    });
+    closeConfirmDeleteProjectButton.addEventListener("click", () => {
+      closeConfirmDeleteProjectForm();
+    });
+
+    function submitDeleteProjectRequest() {
+      let projectIndex = openConfirmDeleteProjectButton.dataset.projectIndex;
+      appBoard.removeProject(projectIndex);
+    }
+
+    submitConfirmDeleteProjectButton.onclick = function (event) {
+      submitDeleteProjectRequest();
+
+      domCreator.displayProjects();
+      closeConfirmDeleteProjectForm();
+      console.log(project);
+    };
+
+    // submitConfirmDeleteProjectButton.addEventListener("click", (event) => {
+    //   let projectIndex = openConfirmDeleteProjectButton.dataset.projectIndex;
+
+    //   //   console.log(event.target);
+    //   console.log(openConfirmDeleteProjectButton);
+    //   console.log(projectIndex);
+
+    //   event.preventDefault();
+
+    //   submitDeleteProjectRequest(projectIndex);
+
+    //   //   domCreator.displayProjects();
+    //   closeConfirmDeleteProjectForm();
+    // });
+
+    openConfirmDeleteProjectForm();
+  }
+
   return {
     addProjectFormEventListeners,
     addTaskFormEventListeners,
     addTaskInfoEventListeners,
+    confirmDeleteProjectEventListeners,
   };
 }
