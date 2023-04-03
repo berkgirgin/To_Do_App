@@ -38,9 +38,10 @@ export function Project(project_name) {
 }
 
 export function createTestProjects() {
-  if (appBoard.projectsList != []) {
+  if (appBoard.projectsList.length !== 0) {
     return;
   }
+
   function getFutureEventDate(days_later) {
     const startOfCurrentWeek = startOfWeek(new Date(), { weekStartsOn: 1 }); // Assuming Monday is the first day of the week
 

@@ -27,7 +27,6 @@ export function DomCreator() {
 
   function displayProjects() {
     appBoard.saveProjectsToLocalStorage();
-    console.log(appBoard.projectsList);
 
     let i = 0;
     const displayForProjects = document.querySelector(".display_projects");

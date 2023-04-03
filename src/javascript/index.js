@@ -10,9 +10,10 @@ import { DomCreator } from "./modules/dom_materials";
 import { AppBoard } from "./modules/app_logic.js";
 import { FormsCreator } from "./modules/forms.js";
 
+export const appBoard = AppBoard();
 export const domCreator = DomCreator();
 export const formCreator = FormsCreator();
-export const appBoard = AppBoard();
+// export const appBoard = AppBoard();
 
 formCreator.addProjectFormEventListeners();
 
