@@ -26,6 +26,9 @@ export function DomCreator() {
   );
 
   function displayProjects() {
+    appBoard.saveProjectsToLocalStorage();
+    console.log(appBoard.projectsList);
+
     let i = 0;
     const displayForProjects = document.querySelector(".display_projects");
     let displaySideBarforProjects;
@@ -120,6 +123,8 @@ export function DomCreator() {
 
   // Displays the tasks in a Project
   function displayTasks(project) {
+    appBoard.saveProjectsToLocalStorage();
+
     const newContainerForProjectTitle = document.querySelector(
       ".display_project_title"
     );

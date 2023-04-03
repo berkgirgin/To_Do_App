@@ -38,6 +38,9 @@ export function Project(project_name) {
 }
 
 export function createTestProjects() {
+  if (appBoard.projectsList != []) {
+    return;
+  }
   function getFutureEventDate(days_later) {
     const startOfCurrentWeek = startOfWeek(new Date(), { weekStartsOn: 1 }); // Assuming Monday is the first day of the week
 
@@ -124,19 +127,19 @@ export function createTestProjects() {
   testTask_8.uniqueID = 80;
   appBoard.projectsList[7].addTask(testTask_8);
 
-  let testTask_9 = Task("Brother birthday", "Family Birthdays");
+  let testTask_9 = Task("Brother birthday", "Birthdays");
   testTask_9.description = "brooo";
   testTask_9.dueDate = "2024-01-26";
   testTask_9.uniqueID = 90;
   appBoard.projectsList[8].addTask(testTask_9);
 
-  let testTask_10 = Task("Mom birthday", "Family Birthdays");
+  let testTask_10 = Task("Mom birthday", "Birthdays");
   testTask_10.description = "yeeey";
   testTask_10.dueDate = "2024-03-18";
   testTask_10.uniqueID = 100;
   appBoard.projectsList[8].addTask(testTask_10);
 
-  let testTask_11 = Task("Dad birthday", "Family Birthdays");
+  let testTask_11 = Task("Dad birthday", "Birthdays");
   testTask_11.description = "yuaaay";
   testTask_11.dueDate = "2024-02-13";
   testTask_11.uniqueID = 110;

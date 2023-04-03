@@ -23,7 +23,24 @@ function taskListSorting(taskList) {
 }
 
 export function AppBoard() {
-  let projectsList = [];
+  // adding local storage
+  const LOCAL_STORAGE_PROJECTS_KEY = "todoapp.projects";
+  let projectsList =
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECTS_KEY)) || [];
+
+  // assigning Object methods back, as they were saved as strings
+  for (let i = 0; i < projectsList.length; i++) {
+    projectsList[i] = Object.assign(new Project(), projectsList[i]);
+
+    for (let j = 0; j < projectsList[i].tasksList.length; j++) {
+      projectsList[i].tasksList[j] = Object.assign(
+        new Task(),
+        projectsList[i].tasksList[j]
+      );
+    }
+  }
+
+  // let projectsList = [];
 
   function addProject(project) {
     // adds the task to end of tasksList
@@ -45,7 +62,12 @@ export function AppBoard() {
     });
   }
 
-  function infoTask() {}
+  function saveProjectsToLocalStorage() {
+    localStorage.setItem(
+      LOCAL_STORAGE_PROJECTS_KEY,
+      JSON.stringify(projectsList)
+    );
+  }
 
   function getTasksFromAllProjects() {
     let allTasks = [];
@@ -188,9 +210,9 @@ export function AppBoard() {
   return {
     projectsList,
     removeTask,
-    infoTask,
     addProject,
     removeProject,
+    saveProjectsToLocalStorage,
     getTasksFromAllProjects,
     getTasksForToday,
     getTasksForWeek,
