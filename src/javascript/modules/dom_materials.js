@@ -1,15 +1,21 @@
 import { appBoard, formCreator } from "../index.js";
 import { Project, ProjectsNotToRemove } from "./projects.js";
 import { Task } from "./tasks.js";
+import { createCalendar } from "./calendar.js";
 
 import deleteIcon from "../../assets/images/delete_folder_icon.svg";
 import deleteIconRed from "../../assets/images/delete_folder_icon_red.svg";
 
-import threeLinesIcon from "../../assets/images/three_lines_icon.png";
+import expandLinesIcon from "../../assets/images/expand_lines_icon.png";
+import expandLinesRedIcon from "../../assets/images/expand_lines_icon_red.png";
+import expandLinesYellowIcon from "../../assets/images/expand_lines_icon_yellow.png";
+import expandLinesGreenIcon from "../../assets/images/expand_lines_icon_green.png";
+
 import addIcon from "../../assets/images/add_icon.png";
 import threeDotsIcon from "../../assets/images/three_dots_icon.png";
 import checkedBoxIcon from "../../assets/images/checked_box_icon.png";
 import infoIcon from "../../assets/images/info_icon.png";
+import finishFlagIcon from "../../assets/images/finish_flag_icon.png";
 
 export function DomCreator() {
   const mainContainer = document.querySelector(".main_container");
@@ -35,6 +41,8 @@ export function DomCreator() {
     // clearing the menus
     document.querySelector(".home_menu").innerHTML = "";
     document.querySelector(".projects_menu").innerHTML = "";
+
+    createCalendar();
 
     appBoard.projectsList.forEach((project) => {
       if (i < ProjectsNotToRemove.length - 1) {
@@ -65,9 +73,17 @@ export function DomCreator() {
 
       const newDisplayTasksButtonImage = document.createElement("img");
       newDisplayTasksButtonImage.setAttribute("alt", "expand icon");
-      newDisplayTasksButtonImage.setAttribute("src", threeLinesIcon);
       newDisplayTasksButtonImage.classList.add("sidebar_icon");
       newDisplayTasksButton.appendChild(newDisplayTasksButtonImage);
+      if (i === 0) {
+        newDisplayTasksButtonImage.setAttribute("src", expandLinesRedIcon);
+      } else if (i === 1) {
+        newDisplayTasksButtonImage.setAttribute("src", expandLinesYellowIcon);
+      } else if (i === 2) {
+        newDisplayTasksButtonImage.setAttribute("src", expandLinesGreenIcon);
+      } else {
+        newDisplayTasksButtonImage.setAttribute("src", expandLinesIcon);
+      }
 
       const newProject = document.createElement("div");
       newProject.classList.add("project");
@@ -98,7 +114,7 @@ export function DomCreator() {
         newRemoveButton.appendChild(newRemoveButtonImage);
       }
 
-      if (i === 5 || i >= ProjectsNotToRemove.length) {
+      if (i >= ProjectsNotToRemove.length - 1) {
         const newAddTaskButton = document.createElement("button");
         newAddTaskButton.classList.add("add_task_button");
         newAddTaskButton.setAttribute("data-project-index", `${i}`);
@@ -137,7 +153,7 @@ export function DomCreator() {
 
     //Today
     if (project === appBoard.projectsList[0]) {
-      project.tasksList = appBoard.getTasksForToday();
+      project.tasksList = appBoard.getTasksForTodayTomorrow();
     }
 
     //This week
@@ -145,18 +161,23 @@ export function DomCreator() {
       project.tasksList = appBoard.getTasksForWeek();
     }
 
-    //Important
+    //This Month
     if (project === appBoard.projectsList[2]) {
+      project.tasksList = appBoard.getTasksForMonth();
+    }
+
+    //Important
+    if (project === appBoard.projectsList[3]) {
       project.tasksList = appBoard.getImportantTasks();
     }
 
     //Expired
-    if (project === appBoard.projectsList[3]) {
+    if (project === appBoard.projectsList[4]) {
       project.tasksList = appBoard.getExpiredTasks();
     }
 
     // All Tasks
-    if (project === appBoard.projectsList[4]) {
+    if (project === appBoard.projectsList[5]) {
       project.tasksList = appBoard.getTasksFromAllProjects();
     }
 
@@ -170,6 +191,17 @@ export function DomCreator() {
         "container_for_single_task_header"
       );
       newContainerForTasks.appendChild(newContainerForSingleTask);
+
+      const newTaskDaysLeftDiv = document.createElement("div");
+      newTaskDaysLeftDiv.classList.add("task_due_date_day");
+      newTaskDaysLeftDiv.innerHTML = "";
+      newContainerForSingleTask.appendChild(newTaskDaysLeftDiv);
+
+      const newTaskDaysLeftImg = document.createElement("img");
+      newTaskDaysLeftImg.setAttribute("alt", "expand icon");
+      newTaskDaysLeftImg.setAttribute("src", finishFlagIcon);
+      newTaskDaysLeftImg.classList.add("title_icon");
+      newTaskDaysLeftDiv.appendChild(newTaskDaysLeftImg);
 
       const newTaskDateDiv = document.createElement("div");
       newTaskDateDiv.classList.add("task_due_date");
@@ -187,11 +219,18 @@ export function DomCreator() {
       newContainerForSingleTask.classList.add("container_for_single_task");
       newContainerForTasks.appendChild(newContainerForSingleTask);
 
+      const newTaskDaysLeftDiv = document.createElement("div");
+      newTaskDaysLeftDiv.classList.add(task.uniqueID);
+      newTaskDaysLeftDiv.classList.add("task_due_date_day");
+      newTaskDaysLeftDiv.classList.add(task.getClassForDuedate());
+      newTaskDaysLeftDiv.innerHTML = task.getDaysLeftStatus();
+      newContainerForSingleTask.appendChild(newTaskDaysLeftDiv);
+
       const newTaskDateDiv = document.createElement("div");
       newTaskDateDiv.classList.add(task.uniqueID);
       newTaskDateDiv.classList.add("task_due_date");
-      newTaskDateDiv.classList.add(task.getClassForDuedate());
-      newTaskDateDiv.innerHTML = task.getDaysLeftStatus();
+      // newTaskDateDiv.classList.add(task.getClassForDuedate());
+      newTaskDateDiv.innerHTML = task.formatDateString();
       newContainerForSingleTask.appendChild(newTaskDateDiv);
 
       const newTaskTitleDiv = document.createElement("div");

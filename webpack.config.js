@@ -9,6 +9,7 @@ module.exports = {
     dom_materials: "./src/javascript/modules/dom_materials.js",
     app_logic: "./src/javascript/modules/app_logic.js",
     forms: "./src/javascript/modules/forms.js",
+    calendar: "./src/javascript/modules/calendar.js",
   },
   mode: "development",
   output: {

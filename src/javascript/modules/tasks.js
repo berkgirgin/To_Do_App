@@ -57,15 +57,29 @@ export function Task(arg_title, arg_project_name) {
 
     if (daysBetween < 0) {
       statusClass = "due_date_expiry_level_0";
-    } else if (daysBetween === 0) {
+    } else if (daysBetween === 0 || daysBetween === 1) {
       statusClass = "due_date_expiry_level_1";
-    } else if (daysBetween >= 1 && daysBetween <= 7) {
+    } else if (daysBetween >= 2 && daysBetween <= 7) {
       statusClass = "due_date_expiry_level_2";
-    } else if (daysBetween > 7 || daysBetween == false) {
+    } else if (daysBetween > 7 && daysBetween <= 31) {
       statusClass = "due_date_expiry_level_3";
+    } else if (daysBetween > 31 || daysBetween == false) {
+      statusClass = "due_date_expiry_level_4";
     }
 
     return statusClass;
+  }
+
+  function formatDateString() {
+    //format it for displayTasks function
+    let dateStr = this.dueDate;
+    let dateOriginalFormat = new Date(dateStr);
+
+    if (dateStr === "") {
+      return;
+    }
+
+    return format(dateOriginalFormat, "dd.MM.yyyy");
   }
 
   return {
@@ -78,5 +92,6 @@ export function Task(arg_title, arg_project_name) {
     isTaskChecked,
     getDaysLeftStatus,
     getClassForDuedate,
+    formatDateString,
   };
 }
