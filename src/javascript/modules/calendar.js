@@ -84,5 +84,6 @@ export function createCalendar() {
   }
 
   // Add the calendar table to the calendar div element
+  calendar.innerHTML = "";
   calendar.appendChild(calendarTable);
 }
