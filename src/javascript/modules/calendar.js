@@ -59,7 +59,7 @@ export function createCalendar() {
   // Create a row for the day names
   var dayNamesRow = calendarTable.insertRow();
   dayNamesRow.classList.add("calendar_days");
-  var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   for (var i = 0; i < dayNames.length; i++) {
     var cell = dayNamesRow.insertCell();
