@@ -20,23 +20,12 @@
         <div id="calendar" class="calendar calendar_container"></div>
         <div class="home_menu_container">
           <div class="home_menu_title">HOME</div>
-          <div class="home_menu">
-            <div>All Tasks</div>
-            <div>Today</div>
-            <div>Next 7 Days</div>
-            <div>Important</div>
-          </div>
+          <div class="home_menu"></div>
         </div>
         <div class="projects_menu_container">
           <div class="projects_menu_title">
             <div>MY PROJECTS</div>
-            <button class="add_project_button">
-              <!-- <img
-                src="../assets/images/add_folder_icon.png"
-                alt="add project"
-                class="sidebar_icon"
-              /> -->
-            </button>
+            <button class="add_project_button"></button>
           </div>
           <div class="projects_menu"></div>
         </div>
@@ -158,13 +147,6 @@
             maxlength="100"
             placeholder="more details about this Task..."
           ></textarea>
-          <!-- <input
-            type="text"
-            name="description"
-            id="form_task_description"
-            maxlength="80"
-            placeholder="Replace this field with text-box"
-          /> -->
         </div>
         <div class="form_row">
           <label class="form_task_date" for="form_task_date">Date:</label>
@@ -173,6 +155,53 @@
 
         <button class="button form_submit" type="submit">
           Submit your task
+        </button>
+      </form>
+
+      <form class="form form_edit_task">
+        <header>
+          <div>Please edit your Task</div>
+          <button type="button" class="button close_form_button">
+            &#x2716;
+          </button>
+        </header>
+        <div class="form_row">
+          <label class="form_edit_task_title" for="form_edit_task_title"
+            >Title:</label
+          >
+          <input
+            type="text"
+            name="title"
+            id="form_edit_task_title"
+            maxlength="60"
+            placeholder="edit your Task"
+            required
+          />
+        </div>
+        <div class="form_row">
+          <label
+            class="form_edit_task_description"
+            for="form_edit_task_description"
+            >Description:</label
+          >
+          <textarea
+            name="description"
+            id="form_edit_task_description"
+            cols="50"
+            rows="6"
+            maxlength="100"
+            placeholder="edit more details about this Task..."
+          ></textarea>
+        </div>
+        <div class="form_row">
+          <label class="form_edit_task_date" for="form_edit_task_date"
+            >Date:</label
+          >
+          <input type="date" name="date" id="form_edit_task_date" />
+        </div>
+
+        <button class="button form_submit form_edit_submit" type="submit">
+          Submit your changes
         </button>
       </form>
     </div>

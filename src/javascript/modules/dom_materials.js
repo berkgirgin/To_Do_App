@@ -2,6 +2,7 @@ import { appBoard, formCreator } from "../index.js";
 import { Project, ProjectsNotToRemove } from "./projects.js";
 import { Task } from "./tasks.js";
 import { createCalendar } from "./calendar.js";
+import { taskListSorting } from "./app_logic.js";
 
 import deleteIcon from "../../assets/images/delete_folder_icon.svg";
 import deleteIconRed from "../../assets/images/delete_folder_icon_red.svg";
@@ -16,6 +17,7 @@ import threeDotsIcon from "../../assets/images/three_dots_icon.png";
 import checkedBoxIcon from "../../assets/images/checked_box_icon.png";
 import infoIcon from "../../assets/images/info_icon.png";
 import finishFlagIcon from "../../assets/images/finish_flag_icon.png";
+import editPencilIcon from "../../assets/images/edit_pencil_icon.png";
 
 export function DomCreator() {
   const mainContainer = document.querySelector(".main_container");
@@ -45,6 +47,7 @@ export function DomCreator() {
     createCalendar();
 
     appBoard.projectsList.forEach((project) => {
+      taskListSorting(project.tasksList);
       if (i < ProjectsNotToRemove.length - 1) {
         displaySideBarforProjects = document.querySelector(".home_menu");
       } else {
@@ -90,6 +93,50 @@ export function DomCreator() {
       newProject.innerHTML = project.projectName;
       newProject.setAttribute("data-project-index", `${i}`);
       newProjectTitleAndButtons.appendChild(newProject);
+
+      if (i >= ProjectsNotToRemove.length - 1) {
+        newProject.addEventListener("click", () => {
+          function replaceWithInput(element) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.value = element.innerHTML;
+            input.maxlength = "40";
+            element.parentNode.replaceChild(input, element);
+            input.focus();
+
+            function updateProject() {
+              project.setProjectName(input.value);
+              var updatedElement = document.createElement("div");
+              updatedElement.className = "project";
+              updatedElement.setAttribute(
+                "data-project-index",
+                element.getAttribute("data-project-index")
+              );
+              updatedElement.innerHTML = input.value;
+              updatedElement.addEventListener("click", function () {
+                replaceWithInput(updatedElement);
+              });
+
+              project.tasksList.forEach((task) => {
+                task.projectName = input.value;
+              });
+
+              input.parentNode.replaceChild(updatedElement, input);
+
+              appBoard.saveProjectsToLocalStorage();
+            }
+
+            input.addEventListener("keyup", (event) => {
+              if (event.key === "Enter") {
+                input.removeEventListener("blur", updateProject);
+                updateProject();
+              }
+            });
+            input.addEventListener("blur", updateProject);
+          }
+          replaceWithInput(newProject);
+        });
+      }
 
       // remove button
       // if condition prevents removing the main categories
@@ -270,6 +317,25 @@ export function DomCreator() {
         task.isImportant = !task.isImportant;
         displayTasks(project); // selects the closest parent
       });
+
+      const newEditTaskButton = document.createElement("button");
+      newEditTaskButton.classList.add("info_task_button");
+      newTaskButtonsContainer.appendChild(newEditTaskButton);
+
+      newEditTaskButton.addEventListener("click", (event) => {
+        formCreator.editTaskFormEventListeners(
+          project,
+          task,
+          newEditTaskButton
+        );
+      });
+
+      const newEditTaskButtonImage = document.createElement("img");
+      newEditTaskButtonImage.setAttribute("alt", "edit task icon");
+      newEditTaskButtonImage.setAttribute("src", editPencilIcon);
+      newEditTaskButtonImage.classList.add("sidebar_icon");
+      newEditTaskButtonImage.classList.add("edit_task_icon");
+      newEditTaskButton.appendChild(newEditTaskButtonImage);
 
       const newInfoTaskButton = document.createElement("button");
       newInfoTaskButton.classList.add("info_task_button");

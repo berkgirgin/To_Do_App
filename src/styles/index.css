@@ -134,10 +134,17 @@ button:hover {
 .project_title_and_buttons .project {
   flex: 1;
 }
+.project_title_and_buttons input {
+  flex: 1;
+}
 
 .sidebar_icon,
 .taskbar_icon {
   height: 1rem;
+}
+.edit_task_icon {
+  margin-bottom: -0.2rem;
+  height: 1.2rem;
 }
 .title_icon {
   height: 3rem;
@@ -499,6 +506,18 @@ button .add_task_button {
 .form .form_project_title {
   width: 60px;
 }
+
+.form .form_edit_project_title,
+.form .form_edit_task_title,
+.form .form_edit_task_description,
+.form .form_edit_task_date {
+  align-self: center;
+  width: 120px;
+}
+.form .form_edit_project_title {
+  width: 60px;
+}
+
 .form input,
 .form textarea {
   border-radius: var(--border_radius);

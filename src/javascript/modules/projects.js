@@ -24,10 +24,18 @@ export function Project(project_name) {
   let projectName = project_name;
   let isProjectChecked = false;
 
+  function setProjectName(new_projectName) {
+    this.projectName = new_projectName;
+  }
+
   let tasksList = [];
 
   function addTask(task) {
     this.tasksList.push(task);
+  }
+
+  function replaceTask(index_to_remove, new_task) {
+    this.tasksList.splice(index_to_remove, 1, new_task);
   }
 
   return {
@@ -35,6 +43,8 @@ export function Project(project_name) {
     tasksList,
     isProjectChecked,
     addTask,
+    replaceTask,
+    setProjectName,
   };
 }
 

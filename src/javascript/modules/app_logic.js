@@ -5,11 +5,23 @@ import { domCreator } from "./tasks.js";
 import { format, differenceInDays, startOfDay } from "date-fns";
 import { appBoard } from "../index.js";
 
-function taskListSorting(taskList) {
+export function taskListSorting(taskList) {
   taskList.sort(function (a, b) {
     //a to x, b to y
-    let x = new Date(a.dueDate);
-    let y = new Date(b.dueDate);
+    let x;
+    let y;
+    if (a.dueDate != "") {
+      x = new Date(a.dueDate);
+    } else {
+      x = new Date("2222-11-10");
+    }
+
+    if (b.dueDate != "") {
+      y = new Date(b.dueDate);
+    } else {
+      y = new Date("2222-11-10");
+    }
+
     let differenceToReturn = differenceInDays(x, y);
 
     if (differenceToReturn === 0) {
@@ -48,8 +60,12 @@ export function AppBoard() {
   }
 
   function removeProject(index) {
-    projectsList.splice(index, 1);
+    this.projectsList.splice(index, 1);
   }
+
+  // function editProject(index_to_remove, new_project) {
+  //   this.projectsList.splice(index_to_remove, 1, new_project);
+  // }
 
   function removeTask(taskUniqueId) {
     projectsList.forEach((project) => {

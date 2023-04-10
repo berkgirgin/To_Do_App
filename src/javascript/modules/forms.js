@@ -13,6 +13,7 @@ export function FormsCreator() {
   const formsMainContainer = document.querySelector(".forms_main_container");
   const infoForm = document.querySelector(".form.task_info");
   const taskForm = document.querySelector(".form.form_task");
+  const editTaskForm = document.querySelector(".form.form_edit_task");
   const projectForm = document.querySelector(".form.form_project");
   const confirmDeleteProjectForm = document.querySelector(
     ".form.confirm_delete_project"
@@ -23,6 +24,9 @@ export function FormsCreator() {
   );
   const submitTaskButton = document.querySelector(
     "form.form_task button.form_submit"
+  );
+  const submitEditTaskButton = document.querySelector(
+    "form.form_edit_task button.form_submit"
   );
 
   const submitConfirmDeleteProjectButton = document.querySelector(
@@ -200,6 +204,131 @@ export function FormsCreator() {
   // *******************************
   // *******************************
 
+  function editTaskFormEventListeners(project, task, editTaskButton) {
+    const selectedProject = project;
+    const selectedTask = task;
+    const closeTaskFormButton = document.querySelector(
+      "form.form_edit_task .close_form_button"
+    );
+    function openTaskForm() {
+      editTaskForm.classList.add("active");
+      overlay.classList.add("active");
+      editTaskForm.querySelector("input#form_edit_task_title").focus();
+      editTaskForm.addEventListener("keydown", (event) => {
+        if (event.keyCode === 13 || event.which === 13) {
+          editTaskForm.querySelector("button.form_edit_submit").focus();
+        }
+      });
+
+      titleFromEditTaskForm.value = selectedTask.title;
+      descriptionFromEditTaskForm.value = selectedTask.description;
+      if (selectedTask.dueDate !== "") {
+        dateFromEditTaskForm.value = selectedTask.dueDate;
+      }
+
+      console.log(task);
+      console.log(project);
+    }
+    function closeTaskForm() {
+      editTaskForm.classList.remove("active");
+      overlay.classList.remove("active");
+    }
+    editTaskButton.addEventListener("click", () => {
+      openTaskForm();
+    });
+    closeTaskFormButton.addEventListener("click", () => {
+      closeTaskForm();
+    });
+    overlay.addEventListener("click", () => {
+      closeTaskForm();
+    });
+
+    const titleFromEditTaskForm = document.querySelector(
+      "#form_edit_task_title"
+    );
+    const descriptionFromEditTaskForm = document.querySelector(
+      "#form_edit_task_description"
+    );
+
+    const dateFromEditTaskForm = document.querySelector("#form_edit_task_date");
+
+    // console.log(selectedTask);
+    // console.log(titleFromEditTaskForm.value);
+    // console.log(descriptionFromEditTaskForm.value);
+    // console.log(dateFromEditTaskForm.value);
+
+    const submitEditTask = function (event) {
+      function clearTaskFormFields() {
+        titleFromEditTaskForm.value = "";
+        descriptionFromEditTaskForm.value = "";
+        dateFromEditTaskForm.value = "";
+      }
+      task.title = titleFromEditTaskForm.value;
+      task.description = descriptionFromEditTaskForm.value;
+      task.dueDate = dateFromEditTaskForm.value;
+
+      if (descriptionFromEditTaskForm.value != false) {
+        task.description = descriptionFromEditTaskForm.value;
+      } else {
+        task.description = "";
+      }
+
+      if (dateFromEditTaskForm.value != false) {
+        task.dueDate = dateFromEditTaskForm.value;
+      } else {
+        task.dueDate = "";
+      }
+
+      // clearTaskFormFields();
+      event.preventDefault();
+
+      // const newTask = Task(
+      //   titleFromEditTaskForm.value,
+      //   selectedProject.projectName
+      // );
+      // newTask.description = descriptionFromEditTaskForm.value;
+
+      // dateFromEditTaskForm.value != false;
+      // newTask.dueDate = dateFromEditTaskForm.value;
+
+      // Object.assign(selectedTask, newTask);
+
+      // selectedProject.replaceTask(index, selectedProject)
+
+      clearTaskFormFields();
+    };
+
+    const controller = new AbortController();
+    // IMPORTANT: do not delete { signal: controller.signal } from the eventListener!
+    submitEditTaskButton.addEventListener(
+      "click",
+      (event) => {
+        if (
+          editTaskForm.querySelector("input#form_edit_task_title").value ==
+          false
+        ) {
+          return;
+        }
+        submitEditTask(event);
+        domCreator.displayTasks(project);
+        closeTaskForm();
+
+        controller.abort();
+      },
+      { signal: controller.signal }
+    );
+
+    openTaskForm();
+  }
+
+  // *******************************
+  // *******************************
+  // *******************************
+
+  // *******************************
+  // *******************************
+  // *******************************
+
   function addTaskInfoEventListeners(openInfoButton, task) {
     const selectedTask = task;
     const infoTitleField = infoForm.querySelector(".fill_task_info_title");
@@ -307,6 +436,7 @@ export function FormsCreator() {
   return {
     addProjectFormEventListeners,
     addTaskFormEventListeners,
+    editTaskFormEventListeners,
     addTaskInfoEventListeners,
     confirmDeleteProjectEventListeners,
   };
