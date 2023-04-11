@@ -13,14 +13,22 @@
   --min-width-dueDate: 5.5rem;
   --form_border: 2px var(--border_color_grey) solid;
 
+  --dark-grey: #333333;
+  --old-yellow: #feffcf;
+  --old-yellow-lighter: #ffffe0;
+  --old-yellow-darker: #f8e999;
+
   --default-text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff,
     0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
 }
 
 body {
   background-color: var(--font_color_white);
+
+  background-image: url(../assets/images/paper.png);
+  background-position: center;
+  background-size: cover;
   font: 1rem sans-serif;
-  color: black;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -37,7 +45,7 @@ body {
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 5rem auto 1.5rem;
   grid-template-areas:
-    "header header"
+    "sidebar header"
     "sidebar main"
     "footer footer";
   /* gap: var(--main_container_gap); */
@@ -80,24 +88,21 @@ button:hover {
 /* ****** */
 .header_main_container {
   color: black;
-  /* padding-bottom: 0; */
-
   display: flex;
-  align-items: st;
+  justify-content: space-between;
+  /* border: 2px solid pink; */
 
-  background-image: url(../assets/images/tree_clouds_header_background.jpg);
-  background-position: bottom left;
-}
-@media screen and (min-width: 1000px) {
-  .header_main_container {
-    background-size: cover;
-  }
+  background-color: transparent;
 }
 
+.header_main_container .header_left {
+  display: flex;
+}
 .header_main_container .header_icon {
-  height: 5.5rem;
+  height: 5rem;
   align-self: center;
-  margin-bottom: -0.4rem;
+  /* margin-bottom: -1rem; */
+  margin-top: 1rem;
 
   /* padding-bottom: 0.5rem; */
 }
@@ -107,6 +112,14 @@ button:hover {
   margin: 0;
   padding: 0;
   font-family: fantasy;
+  margin-left: -2rem;
+}
+
+.header_main_container .clock {
+  height: 9rem;
+  width: 9rem;
+  border: 1px solid var(--dark-grey);
+  margin-right: 1rem;
 }
 
 /* ****** */
@@ -120,7 +133,11 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  background-color: var(--font_color_white);
+  /* background-color: var(--font_color_white); */
+  /* background-color: var(--dark-grey); */
+  /* color: var(--font_color_white); */
+  color: var(--dark-grey);
+  background-color: var(--old-yellow-lighter);
 }
 
 .sidebar_project_row .project_title_and_buttons {
@@ -152,11 +169,21 @@ button:hover {
 }
 
 /* calendar */
+
+.calendar {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
 table {
-  background-color: var(--hover-color-default);
+  background-color: var(--old-yellow-darker);
   font-size: 0.7rem;
   table-layout: fixed;
   width: 100%;
+  /* color: var(--dark-grey); */
+  margin-top: 0.1rem;
 }
 
 table * {
@@ -181,13 +208,13 @@ td {
 
 tr.calendar_days {
   font-weight: bold;
-  /* font-size: 1.1rem; */
 }
 
 .calendar .today {
   background-color: #b91c1c;
   font-weight: bold;
   box-shadow: inset 0 0 0 2px black;
+  color: black;
 }
 
 /* Home sidebar */
@@ -210,7 +237,7 @@ tr.calendar_days {
   gap: 0.5rem;
 }
 .home_menu > *:hover {
-  background-color: var(--hover-color-default);
+  background-color: var(--old-yellow-darker);
 }
 
 .delete_project_icon:hover {
@@ -244,7 +271,7 @@ tr.calendar_days {
   gap: 0.5rem;
 }
 .projects_menu > *:hover {
-  background-color: var(--hover-color-default);
+  background-color: var(--old-yellow-darker);
 }
 
 .projects_menu .sidebar_project_row:first-child {
@@ -265,12 +292,16 @@ button .add_task_button {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  background-color: white;
+  margin-top: 0.6rem;
+  background-color: transparent;
+
+  color: var(--dark-grey);
 }
 
 .display_projects {
   /* border: 2px darkgoldenrod solid; */
   padding: 1rem;
+  gap: 0.4rem;
 
   display: flex;
   flex-direction: column;
@@ -300,6 +331,10 @@ button .add_task_button {
   display: flex;
   gap: 1rem;
   align-items: center;
+  /* background-color: #f3f2de; */
+  /* background-color: #f8e999; */
+  border-radius: var(--border_radius);
+  background-color: var(--old-yellow-lighter);
 
   /* border: 1px brown solid; */
   padding: 0.5rem;
@@ -310,7 +345,7 @@ button .add_task_button {
   opacity: 0.5;
 }
 .container_for_single_task:hover {
-  background-color: var(--hover-color-default);
+  background-color: var(--old-yellow-darker);
 }
 
 .container_for_single_task_header {
@@ -323,7 +358,8 @@ button .add_task_button {
   /* padding-bottom: 0.2rem; */
   margin-bottom: 0.5rem;
   /* margin-left: calc(var(--min-width-dueDate) + 0.8rem); */
-  border-bottom: var(--form_border);
+  /* border-bottom: var(--form_border); */
+  border-bottom: 2px var(--dark-grey) solid;
 }
 .container_for_single_task_header .task_due_date_day {
   min-width: var(--min-width-dueDate);

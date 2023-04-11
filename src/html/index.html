@@ -9,12 +9,27 @@
   <body>
     <div class="main_container">
       <div class="header_main_container">
-        <img
-          src="../assets/images/to_do_man_icon.png"
-          alt="to do man"
-          class="icon header_icon"
-        />
-        <h1>To Do List</h1>
+        <div class="header_left">
+          <img
+            src="../assets/images/bulletin_pin.png"
+            alt="to do man"
+            class="icon header_icon"
+          />
+          <h1>To Do List</h1>
+        </div>
+        <div class="header_right">
+          <div class="clock">
+            <div class="hour">
+              <div class="hr" id="hr"></div>
+            </div>
+            <div class="min">
+              <div class="mn" id="mn"></div>
+            </div>
+            <div class="sec">
+              <div class="sc" id="sc"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="side_bar_main_container">
         <div id="calendar" class="calendar calendar_container"></div>

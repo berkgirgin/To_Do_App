@@ -279,22 +279,7 @@ export function FormsCreator() {
         task.dueDate = "";
       }
 
-      // clearTaskFormFields();
       event.preventDefault();
-
-      // const newTask = Task(
-      //   titleFromEditTaskForm.value,
-      //   selectedProject.projectName
-      // );
-      // newTask.description = descriptionFromEditTaskForm.value;
-
-      // dateFromEditTaskForm.value != false;
-      // newTask.dueDate = dateFromEditTaskForm.value;
-
-      // Object.assign(selectedTask, newTask);
-
-      // selectedProject.replaceTask(index, selectedProject)
-
       clearTaskFormFields();
     };
 

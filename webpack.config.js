@@ -10,6 +10,7 @@ module.exports = {
     app_logic: "./src/javascript/modules/app_logic.js",
     forms: "./src/javascript/modules/forms.js",
     calendar: "./src/javascript/modules/calendar.js",
+    clock: "./src/javascript/modules/clock.js",
   },
   mode: "development",
   output: {

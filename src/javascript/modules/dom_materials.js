@@ -13,8 +13,7 @@ import expandLinesYellowIcon from "../../assets/images/expand_lines_icon_yellow.
 import expandLinesGreenIcon from "../../assets/images/expand_lines_icon_green.png";
 
 import addIcon from "../../assets/images/add_icon.png";
-import threeDotsIcon from "../../assets/images/three_dots_icon.png";
-import checkedBoxIcon from "../../assets/images/checked_box_icon.png";
+
 import infoIcon from "../../assets/images/info_icon.png";
 import finishFlagIcon from "../../assets/images/finish_flag_icon.png";
 import editPencilIcon from "../../assets/images/edit_pencil_icon.png";

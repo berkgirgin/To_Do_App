@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export function createCalendar() {
   // Get the current date
   var currentDate = new Date();
@@ -84,6 +86,6 @@ export function createCalendar() {
   }
 
   // Add the calendar table to the calendar div element
-  calendar.innerHTML = "";
+  calendar.innerHTML = `&#8880;${format(currentDate, "MMMM dd, yyyy")}&#8881;`;
   calendar.appendChild(calendarTable);
 }
