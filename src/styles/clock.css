@@ -138,7 +138,7 @@ body.light .mn:before {
   position: absolute;
   width: 2px;
   height: 70px;
-  background: red;
+  background: #b91c1c;
   z-index: 12;
   /* z-index more than hour minute hand */
   border-radius: 3px;

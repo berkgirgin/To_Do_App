@@ -265,6 +265,10 @@ export function DomCreator() {
       newContainerForSingleTask.classList.add("container_for_single_task");
       newContainerForTasks.appendChild(newContainerForSingleTask);
 
+      const newCircleForTask = document.createElement("div");
+      newCircleForTask.classList.add("circle");
+      newContainerForSingleTask.appendChild(newCircleForTask);
+
       const newTaskDaysLeftDiv = document.createElement("div");
       newTaskDaysLeftDiv.classList.add(task.uniqueID);
       newTaskDaysLeftDiv.classList.add("task_due_date_day");
