@@ -20,6 +20,22 @@
 
   --default-text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff,
     0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
+
+  --sidebar-box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.4), inset 0 1px 0 #ccc,
+    inset 1px 0 0 #aaa, inset 0 -1px 0 #ccc, inset -1px 0 0 #aaa,
+    inset 0 2px 0 #c6c6c6, inset 2px 0 0 #a6a6a6, inset 0 -2px 0 #c6c6c6,
+    inset -2px 0 0 #a6a6a6, inset 0 3px 0 #c0c0c0, inset 3px 0 0 #a0a0a0,
+    inset 0 -3px 0 #c0c0c0, inset -3px 0 0 #a0a0a0, inset 0 4px 0 #b9b9b9,
+    inset 4px 0 0 #999, inset 0 -4px 0 #b9b9b9, inset -4px 0 0 #999,
+    inset 0 5px 0 #b6b6b6, inset 5px 0 0 #969696, inset 0 -5px 0 #b6b6b6,
+    inset -5px 0 0 #969696, inset 0 6px 0 #b0b0b0, inset 6px 0 0 #909090,
+    inset 0 -6px 0 #b0b0b0, inset -6px 0 0 #909090, inset 0 7px 0 #a9a9a9,
+    inset 7px 0 0 #898989, inset 0 -7px 0 #a9a9a9, inset -7px 0 0 #898989,
+    inset 0 8px 0 #a6a6a6, inset 8px 0 0 #868686, inset 0 -8px 0 #a6a6a6,
+    inset -8px 0 0 #868686, inset 0 9px 0 #a0a0a0, inset 9px 0 0 #808080,
+    inset 0 -9px 0 #a0a0a0, inset -9px 0 0 #808080, inset 0 10px 0 #888,
+    inset 10px 0 0 #666, inset 0 -10px 0 #888, inset -10px 0 0 #666,
+    inset 0 0 10px 10px hsla(0, 0%, 0%, 0.5);
 }
 
 body {
@@ -90,7 +106,6 @@ button:hover {
   color: black;
   display: flex;
   justify-content: space-between;
-  /* border: 2px solid pink; */
 
   background-color: transparent;
 }
@@ -133,11 +148,13 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  /* background-color: var(--font_color_white); */
-  /* background-color: var(--dark-grey); */
-  /* color: var(--font_color_white); */
   color: var(--dark-grey);
-  background-color: var(--old-yellow-lighter);
+  /* background-color: var(--old-yellow-lighter); */
+  background-color: var(--font_color_white);
+
+  box-shadow: var(--sidebar-box-shadow);
+  border: 1px solid;
+  border-color: #bbb #999;
 }
 
 .sidebar_project_row .project_title_and_buttons {
@@ -182,7 +199,7 @@ table {
   font-size: 0.7rem;
   table-layout: fixed;
   width: 100%;
-  /* color: var(--dark-grey); */
+  color: var(--dark-grey);
   margin-top: 0.1rem;
 
   box-shadow: 0em -1.2em 1.2em rgba(255, 255, 255, 0.06),
@@ -241,7 +258,7 @@ tr.calendar_days {
   gap: 0.5rem;
 }
 .home_menu > *:hover {
-  background-color: var(--old-yellow-darker);
+  background-color: var(--hover-color-default);
 }
 
 .delete_project_icon:hover {
@@ -275,7 +292,7 @@ tr.calendar_days {
   gap: 0.5rem;
 }
 .projects_menu > *:hover {
-  background-color: var(--old-yellow-darker);
+  background-color: var(--hover-color-default);
 }
 
 .projects_menu .sidebar_project_row:first-child {
@@ -369,8 +386,8 @@ button .add_task_button {
 .container_for_single_task:hover {
   background: linear-gradient(
     to right,
-    var(--old-yellow) 0%,
-    var(--old-yellow) 100%
+    var(--old-yellow-darker) 0%,
+    var(--old-yellow-darker) 100%
   );
 }
 
@@ -385,11 +402,9 @@ button .add_task_button {
   border-radius: 50%;
   box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.5),
     inset 0 0 0 25px transparent;
-  /* background-color: transparent; */
   background-image: url("../assets/images/paper.png");
   height: 20px;
   aspect-ratio: 1/1;
-  /* display: inline-block; */
 }
 
 .container_for_single_task.checked {
