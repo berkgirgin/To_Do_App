@@ -204,9 +204,7 @@ table {
   color: var(--dark-grey);
   margin-top: 0.1rem;
 
-  box-shadow: 0em -1.2em 1.2em rgba(255, 255, 255, 0.06),
-    inset 0em -1.2em 1.2em rgba(255, 255, 255, 0.06),
-    0em 0.3em 0.3em rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 2px 4px #888888;
 }
 
 table * {
@@ -301,6 +299,9 @@ tr.calendar_days {
 .projects_menu .sidebar_project_row:first-child {
   margin-bottom: 0.5rem;
   font-size: 1rem;
+}
+.projects_menu .sidebar_project_row:first-child.sidebar_icon {
+  height: 0.9rem;
 }
 
 button .add_task_button {

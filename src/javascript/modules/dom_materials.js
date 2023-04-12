@@ -184,6 +184,8 @@ export function DomCreator() {
 
   // Displays the tasks in a Project
   function displayTasks(project) {
+    taskListSorting(project.tasksList);
+
     appBoard.saveProjectsToLocalStorage();
 
     const newContainerForProjectTitle = document.querySelector(
